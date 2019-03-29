@@ -1,1 +1,0 @@
-(function($){$(document).ready(function() {console.log("here is ME template");});$(window).resize(function() {	    	if ((window.innerWidth)>768) {		}	else {		}});$( window ).scroll(function() {});})(jQuery);
