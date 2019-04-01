@@ -1,3 +1,17 @@
-body {
-
+.option-page-setting-wrapper>.nav-tab-wrapper {
+	width: 20%;
+	float: left;
+}
+.option-page-setting-wrapper>.setting-form {
+	width: 80%;
+	float: left;
+}
+.option-page-setting-wrapper>.nav-tab-wrapper .nav-tab {
+    display: block;
+    float: none;
+    margin-left: 0;
+    margin-right: 50px;
+}
+.wrap .option-page-setting-wrapper>.nav-tab-wrapper {
+border-bottom: none;
 }
