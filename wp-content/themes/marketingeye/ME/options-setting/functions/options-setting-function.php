@@ -62,7 +62,7 @@ if ( file_exists( get_template_directory() . '/ME/options-setting/functions/glob
 				<!-- when tab buttons are clicked we jump back to the same page but with a new parameter that represents the clicked tab. accordingly we make it active -->
 				<?php 
 				foreach ($config->sections as $section) :?>
-					<a href="?page=theme-options&tab=<?php echo $section['id'];?>" class="nav-tab <?php if ($active_tab == $section['title']) {echo 'nav-tab-active';}?>"><?php echo $section['title']; ?></a>    
+					<a href="?page=theme-options&tab=<?php echo $section['id'];?>" class="nav-tab <?php if ($active_tab == $section['id']) {echo 'nav-tab-active';}?>"><?php echo $section['title']; ?></a>    
 				<?php endforeach;
 				?>
 			</h2>
@@ -86,7 +86,7 @@ if ( file_exists( get_template_directory() . '/ME/options-setting/functions/glob
 
 	function display_options()
 	{
-		add_settings_section("option-settings", "Header Options", "display_header_options_content", "theme-options");
+		add_settings_section("option-settings", "Options Setting", "display_options_page_content", "theme-options");
 
 		//here we display the sections and options in the settings page based on the active tab
 		global $config;
@@ -109,13 +109,34 @@ if ( file_exists( get_template_directory() . '/ME/options-setting/functions/glob
 							"option-settings",
 							$arg
 						);
+						register_setting("option-settings", $setting_field_id);
 					endforeach;
 				endif;
 			endforeach;
 		}
+		else {
+			$section = $config->sections[0];
+			$args = array();
+					foreach ($section['fields'] as $field) :
+						$setting_field_id = $field['id'];
+						$setting_field_type = $field['type'];
+						$setting_filed_title = $field['title'];	
+						$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title);
+						array_push ($args, $arg);
+						add_settings_field(
+							$setting_field_id,
+							$setting_filed_title,
+							"display_form_element",
+							"theme-options",
+							"option-settings",
+							$arg
+						);
+						register_setting("option-settings", $setting_field_id);
+					endforeach;
+		}
 	}
 
-	function display_header_options_content(){echo "The header of the theme";}
+	function display_options_page_content(){echo "The settings of the theme";}
 	
 	function display_form_element(array $args) {
 			$setting_field_id = $args['id'];
@@ -123,17 +144,5 @@ if ( file_exists( get_template_directory() . '/ME/options-setting/functions/glob
 			$setting_filed_title = $args['title'];
 			echo '<input type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
 	}
-	function display_logo_form_element()
-	{
-		?>
-			<input type="text" name="header_logo" id="header_logo" value="<?php echo get_option('header_logo'); ?>" />
-		<?php
-	}
-	function display_ads_form_element()
-	{
-		?>
-			<input type="text" name="advertising_code" id="advertising_code" value="<?php echo get_option('advertising_code'); ?>" />
-		<?php
-	}
-
 	add_action("admin_init", "display_options");
+
