@@ -68,7 +68,7 @@ class global_setting_config {
 						'id' => 'opt-general-logo-2',
 						'type' => 'media',
 						'url' => true,
-						'title' => __('Logo Upload', 'helmets'),
+						'title' => 'Loogo update-2',
 						'compiler' => 'true',
 						//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
 						'desc' => __('Upload your logo image', 'helmets'),
@@ -87,41 +87,7 @@ class global_setting_config {
 					)
 				)
 			); 
-		//general settings3
-		$this->sections[] = array(
-				'id' => 'general-setting-3',
-				'icon' => 'el-icon-cogs',
-				'title' => 'General Settings3',
-				'fields' => array(
-					array(
-						'id'    => 'opt-general-introduction-3',
-						'type'  => 'info',
-						'title' => 'Welcome to ME Theme Option Panel-3',
-						'desc'  => 'From here you can config HELMETS theme in the way you need.'
-					),
-					array(
-						'id' => 'opt-general-logo-3',
-						'type' => 'media',
-						'url' => true,
-						'title' => __('Logo Upload', 'helmets'),
-						'compiler' => 'true',
-						//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
-						'desc' => __('Upload your logo image', 'helmets'),
-						'subtitle' => __('Upload your custom logo image', 'helmets'),
-						'default' => array( 'url' => get_template_directory_uri() . '/assets/images/logo.png' ),
-						'hint' => array(
-							'title'     => 'Hint Title',
-							'content'   => 'This is a <b>hint</b> for the media field with a Title.',
-						)
-					),
-					array(
-						'id' => 'opt-setting-text-3',
-						'type' => 'text',
-						'title' => 'test text 3',
-						'description' => 'this is text setting test 3'
-					)
-				)
-			); 
+
 	}
 }
 
