@@ -8,14 +8,9 @@ class global_setting_config {
 	}
 	
 	public function initSettings() {
-		//$this->test();
 		$this->setSection();
 	}
-	
-	public function test() {
-		echo "test config";
-	}
-	
+
 	public function setSection() {
 		//general settings
 		$this->sections[] = array(
@@ -24,13 +19,13 @@ class global_setting_config {
 				'title' => 'General Settings',
 				'fields' => array(
 					array(
-						'id'    => 'opt-general-introduction',
+						'id'    => 'opt-general-introduction-1',
 						'type'  => 'info',
 						'title' => 'Welcome to ME Theme Option Panel',
 						'desc'  => 'From here you can config HELMETS theme in the way you need.'
 					),
 					array(
-						'id' => 'opt-general-logo',
+						'id' => 'opt-general-logo-1',
 						'type' => 'media',
 						'url' => true,
 						'title' => "Loogo update",
@@ -45,7 +40,7 @@ class global_setting_config {
 						)
 					),
 					array(
-						'id' => 'opt-setting-text',
+						'id' => 'opt-setting-text-1',
 						'type' => 'text',
 						'title' => 'test text',
 						'description' => 'this is text setting test'
