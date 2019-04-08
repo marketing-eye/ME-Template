@@ -28,3 +28,11 @@ return $classes;
 add_filter( 'body_class', 'add_slug_body_class' );
 
 require_once get_template_directory() . '/ME/options-setting/functions/options-setting-function.php';
+
+add_action('admin_enqueue_scripts', function(){
+    /*
+    if possible try not to queue this all over the admin by adding your settings GET page val into next
+    if( empty( $_GET['page'] ) || "my-settings-page" !== $_GET['page'] ) { return; }
+    */
+    wp_enqueue_media();
+});

@@ -108,6 +108,9 @@ function me_admin_init() {
 										empty($arg);
 										$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title);
 										add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );
+										if ($setting_field_type =='media'):
+										add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
+										endif;
 								endforeach;
 
 							endif;
@@ -126,10 +129,71 @@ function me_option_settings(array $args) {
 $setting_field_id = $args['id'];
 			$setting_field_type = $args['type'];
 			$setting_filed_title = $args['title'];
-			echo '<input type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
+			if ($args['type'] =='media'):
+	echo '<input class="options-input-field" type="text" id="image_url" name="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" /><br>'; 
+	echo '<input id="image_upload_button" type="button" class="button" value="Upload Image" /> ';
+	?>
+
+	<?php
+			else:
+			echo '<input class="options-input-field" type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
+			endif;
 }
 
-function me_general_option() {
-    _e( 'The general section description goes here.');
+function options_image_setting_logo_preview(array $args) {
+	$setting_field_id = $args['id'];
+	$setting_field_type = $args['type'];
+	$setting_filed_title = $args['title'];
+    $wptuts_options = get_option( $setting_field_id );  ?>
+    <div class="upload-image" id="<?php echo $setting_field_id;?>_upload_image_preview" style="min-height: 100px;">
+        <img style="max-width:100%;" src="<?php echo get_option($setting_field_id); ?>" />
+    </div>
+    <?php
 }
-add_action( 'wp_enqueue_scripts', 'me_link_color' );
+
+add_action('admin_footer', function() { 
+
+    /*
+    if possible try not to queue this all over the admin by adding your settings GET page val into next
+    if( empty( $_GET['page'] ) || "my-settings-page" !== $_GET['page'] ) { return; }
+    */
+
+    ?>
+
+    <script>
+        jQuery(document).ready(function($){
+
+
+            $("#image_upload_button.button").click(function(e) {
+                e.preventDefault();
+                var custom_uploader;
+                var upload_button = $(this);
+                //If the uploader object has already been created, reopen the dialog
+                if (custom_uploader) {
+                    custom_uploader.open();
+                    return;
+                }
+                //Extend the wp.media object
+                custom_uploader = wp.media.frames.file_frame = wp.media({
+                    title: 'Choose Image',
+                    button: {
+                        text: 'Choose Image'
+                    },
+                    multiple: false
+                });
+                //When a file is selected, grab the URL and set it as the text field's value
+                custom_uploader.on('select', function() {
+                    attachment = custom_uploader.state().get('selection').first().toJSON();
+                    upload_button.siblings(".options-input-field").val(attachment.url);
+                    var id=upload_button.siblings(".options-input-field").attr("name");
+                    console.log(id);
+                    $("#"+id+"_upload_image_preview img").attr("src", attachment.url);
+                });
+                //Open the uploader dialog
+                custom_uploader.open();
+            });      
+        });
+    </script>
+
+    <?php
+    });

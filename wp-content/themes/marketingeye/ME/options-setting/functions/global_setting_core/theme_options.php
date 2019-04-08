@@ -25,10 +25,25 @@ class global_setting_config {
 						'desc'  => 'From here you can config HELMETS theme in the way you need.'
 					),
 					array(
-						'id' => 'opt-general-logo-1',
+						'id' => 'opt-general-logo-1-1',
 						'type' => 'media',
 						'url' => true,
 						'title' => "Loogo update",
+						'compiler' => 'true',
+						//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
+						'desc' => 'Upload your logo image',
+						'subtitle' => __('Upload your custom logo image', 'helmets'),
+						'default' => array( 'url' => get_template_directory_uri() . '/assets/images/logo.png' ),
+						'hint' => array(
+							'title'     => 'Hint Title',
+							'content'   => 'This is a <b>hint</b> for the media field with a Title.',
+						)
+					),
+					array(
+						'id' => 'opt-general-logo-1-2',
+						'type' => 'media',
+						'url' => true,
+						'title' => "Loogo update 2",
 						'compiler' => 'true',
 						//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
 						'desc' => 'Upload your logo image',

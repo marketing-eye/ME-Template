@@ -15,3 +15,11 @@
 .wrap .option-page-setting-wrapper>.nav-tab-wrapper {
 border-bottom: none;
 }
+.option-page-setting-wrapper .form-table .options-input-field {
+	width: 100%;
+	max-width: 700px;
+}
+
+.option-page-setting-wrapper .form-table .upload-image {
+    max-width: 100px;
+}
