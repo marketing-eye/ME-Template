@@ -22,6 +22,20 @@ if ( file_exists( get_template_directory() . '/ME/options-setting/functions/glob
 	require_once get_template_directory() . '/ME/options-setting/functions/global_setting_core/theme_options.php';
 }
 
+function custom_css_func() {
+$html_css="";
+$html_css .= "<style type='text/css'>".get_option('opt-general-custom-css')."</style>";
+echo $html_css;
+}
+add_action('wp_head', 'custom_css_func');
+
+function custom_js_func() {
+$html_js="";
+$html_js .= "<script type='text/javascript'>(function($){".get_option('opt-general-custom-js')."})(jQuery);</script>";
+echo $html_js;
+}
+add_action('wp_footer', 'custom_js_func');
+
 function add_new_menu_items()
 	{
 		add_menu_page(
