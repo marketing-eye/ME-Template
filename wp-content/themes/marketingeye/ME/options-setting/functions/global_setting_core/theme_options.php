@@ -97,6 +97,32 @@ class global_setting_config {
 					)
 				)
 			); 
+		//general setting3 - editor
+		$this->sections[] = array(
+				'id' => 'general-setting-3',
+				'icon' => 'el-icon-cogs',
+				'title' => 'General Settings3',
+				'fields' => array(
+					array(
+						'id' => 'opt-setting-text-3',
+						'type' => 'text',
+						'title' => 'test text 3',
+						'description' => 'this is text setting test 3'
+					),
+					array(
+						'id' => 'opt-setting-editor-1',
+						'type' => 'editor',
+						'title' => 'opt-setting-editor-1',
+						'description' => 'this is editor setting test 3-1'
+					),
+					array(
+						'id' => 'opt-setting-editor-2',
+						'type' => 'editor',
+						'title' => 'opt-setting-editor-2',
+						'description' => 'this is editor setting test 3-2'
+					),
+				)
+			); 
 
 	}
 }

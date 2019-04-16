@@ -107,10 +107,13 @@ function me_admin_init() {
 										$setting_filed_title = $field['title'];	
 										empty($arg);
 										$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title);
-										add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );
-										if ($setting_field_type =='media'):
-										add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
-										endif;
+                                        add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );    
+                                        if ($setting_field_type =='media'):
+                                            add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
+										elseif ($setting_field_type =='editor'):
+                                            add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );    
+                                        else:
+                                        endif;
 								endforeach;
 
 							endif;
@@ -135,6 +138,10 @@ $setting_field_id = $args['id'];
 	?>
 
 	<?php
+    elseif ($args['type'] =='editor'):
+    $editor_value = get_option($setting_field_id);
+    $settings = array( 'media_buttons' => false,'textarea_rows'=>'10' );
+    wp_editor($editor_value,$setting_field_id, $settings);
 			else:
 			echo '<input class="options-input-field" type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
 			endif;
