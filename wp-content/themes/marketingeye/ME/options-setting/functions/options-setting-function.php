@@ -170,7 +170,7 @@ $setting_field_id = $args['id'];
 	<?php
     elseif ($args['type'] =='editor'):
     $editor_value = get_option($setting_field_id);
-    $settings = array( 'media_buttons' => false,'textarea_rows'=>'10' );
+    $settings = array( 'quicktags'=> false,'tinymce'=> false, 'media_buttons' => false,'textarea_rows'=>'10' );
     wp_editor($editor_value,$setting_field_id, $settings);
 			else:
 			echo '<input class="options-input-field" type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
