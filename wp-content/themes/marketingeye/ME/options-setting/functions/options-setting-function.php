@@ -36,6 +36,44 @@ echo $html_js;
 }
 add_action('wp_footer', 'custom_js_func');
 
+function social_media_list_func() {
+    $html = "";
+    if ((get_option('opt-social-facebook')))
+        {
+        $html.= trim(get_option('opt-social-facebook')) != '' ? '<a href="' . esc_url(get_option('opt-social-facebook')) . '" target="_blank"><i class="fa fa-facebook"></i></a>' : '';
+        }
+    if ((get_option('opt-social-google-plus')))
+        {
+        $html.= trim(get_option('opt-social-google-plus')) != '' ? '<a href="' . esc_url(get_option('opt-social-google-plus')) . '" target="_blank"><i class="fa fa-google-plus"></i></a>' : '';
+        }
+    if ((get_option('opt-social-twitter')))
+        {
+        $html.= trim(get_option('opt-social-twitter')) != '' ? '<a href="' . esc_url(get_option('opt-social-twitter')) . '" target="_blank"><i class="fa fa-twitter"></i></a>' : '';
+        }
+    if ((get_option('opt-social-instagram')))
+        {
+        $html.= trim(get_option('opt-social-instagram')) != '' ? '<a href="' . esc_url(get_option('opt-social-instagram')) . '" target="_blank"><i class="fa fa-instagram"></i></a>' : '';
+        }
+    if ((get_option('opt-social-youtube')))
+        {
+        $html.= trim(get_option('opt-social-youtube')) != '' ? '<a href="' . esc_url(get_option('opt-social-youtube')) . '" target="_blank"><i class="fa fa-youtube"></i></a>' : '';
+        }
+    if ((get_option('opt-social-vimeo')))
+        {
+        $html.= trim(get_option('opt-social-vimeo')) != '' ? '<a href="' . esc_url(get_option('opt-social-vimeo')) . '" target="_blank"><i class="fa fa-vimeo-square"></i></a>' : '';
+        }
+    if ((get_option('opt-social-linkedin')))
+        {
+        $html.= trim(get_option('opt-social-linkedin')) != '' ? '<a href="' . esc_url(get_option('opt-social-linkedin')) . '" target="_blank"><i class="fa fa-linkedin"></i></a>' : '';
+        }
+    if ((get_option('opt-social-rss')))
+        {
+        $html.= trim(get_option('opt-social-rss')) != '' ? '<a href="' . esc_url(get_option('opt-social-rss')) . '" target="_blank"><i class="fa fa-rss"></i></a>' : '';
+        }
+    echo $html;
+}
+add_shortcode('social_media_list','social_media_list_func');
+
 function add_new_menu_items()
 	{
 		add_menu_page(

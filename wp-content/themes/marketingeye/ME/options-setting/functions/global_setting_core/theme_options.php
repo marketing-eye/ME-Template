@@ -14,112 +14,91 @@ class global_setting_config {
 	public function setSection() {
 		//general settings
 		$this->sections[] = array(
-				'id' => 'general-setting-1',
-				'icon' => 'el-icon-cogs',
+				'id' => 'general-settings',
+				'icon' => '',
 				'title' => 'General Settings',
 				'fields' => array(
 					array(
-						'id'    => 'opt-general-introduction-1',
-						'type'  => 'info',
-						'title' => 'Welcome to ME Theme Option Panel',
-						'desc'  => 'From here you can config HELMETS theme in the way you need.'
-					),
-					array(
-						'id' => 'opt-general-logo-1-1',
+						'id' => 'opt-general-logo',
 						'type' => 'media',
-						'url' => true,
-						'title' => "Loogo update",
-						'compiler' => 'true',
-						//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
-						'desc' => 'Upload your logo image',
-						'subtitle' => __('Upload your custom logo image', 'helmets'),
+						'title' => "Logo update",
+						'desc' => 'Upload your custom logo image',
 						'default' => array( 'url' => get_template_directory_uri() . '/assets/images/logo.png' ),
-						'hint' => array(
-							'title'     => 'Hint Title',
-							'content'   => 'This is a <b>hint</b> for the media field with a Title.',
-						)
-					),
-					array(
-						'id' => 'opt-general-logo-1-2',
-						'type' => 'media',
-						'url' => true,
-						'title' => "Loogo update 2",
-						'compiler' => 'true',
-						//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
-						'desc' => 'Upload your logo image',
-						'subtitle' => __('Upload your custom logo image', 'helmets'),
-						'default' => array( 'url' => get_template_directory_uri() . '/assets/images/logo.png' ),
-						'hint' => array(
-							'title'     => 'Hint Title',
-							'content'   => 'This is a <b>hint</b> for the media field with a Title.',
-						)
-					),
-					array(
-						'id' => 'opt-setting-text-1',
-						'type' => 'text',
-						'title' => 'test text',
-						'description' => 'this is text setting test'
-					)
-				)
-			); 
-		//general settings2
-		$this->sections[] = array(
-				'id' => 'general-setting-2',
-				'icon' => 'el-icon-cogs',
-				'title' => 'General Settings2',
-				'fields' => array(
-					array(
-						'id'    => 'opt-general-introduction-2',
-						'type'  => 'info',
-						'title' => 'Welcome to ME Theme Option Panel-2',
-						'desc'  => 'From here you can config HELMETS theme in the way you need.'
 					),
 					array(
 						'id' => 'opt-general-logo-2',
 						'type' => 'media',
-						'url' => true,
-						'title' => 'Loogo update-2',
-						'compiler' => 'true',
-						//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
-						'desc' => __('Upload your logo image', 'helmets'),
-						'subtitle' => __('Upload your custom logo image', 'helmets'),
-						'default' => array( 'url' => get_template_directory_uri() . '/assets/images/logo.png' ),
-						'hint' => array(
-							'title'     => 'Hint Title',
-							'content'   => 'This is a <b>hint</b> for the media field with a Title.',
-						)
+						'title' => "Logo update 2",
+						'desc' => 'Upload your second custom logo image',
+						'default' => array( 'url' => get_template_directory_uri() . '/assets/images/logo2.png' ),
 					),
 					array(
-						'id' => 'opt-setting-text-2',
-						'type' => 'text',
-						'title' => 'test text 2',
-						'description' => 'this is text setting test 2'
+						'id' => 'opt-general-custom-css',
+						'type' => 'editor',
+						'title' => 'Custom CSS',
+						'description' => 'Paste your custom CSS code here.'
+					),
+					array(
+						'id' => 'opt-general-custom-js',
+						'type' => 'editor',
+						'title' => 'Custom JS',
+						'description' => 'Paste your custom JS code here.'
 					)
 				)
 			); 
-		//general setting3 - editor
+		//Social Settings
 		$this->sections[] = array(
-				'id' => 'general-setting-3',
+				'id' => 'social-settings',
 				'icon' => 'el-icon-cogs',
-				'title' => 'General Settings3',
+				'title' => 'Social Settings',
 				'fields' => array(
 					array(
-						'id' => 'opt-setting-text-3',
+						'id' => 'opt-social-facebook',
 						'type' => 'text',
-						'title' => 'test text 3',
-						'description' => 'this is text setting test 3'
+						'title' => 'Facebook',
+						'description' => ''
 					),
 					array(
-						'id' => 'opt-setting-editor-1',
-						'type' => 'editor',
-						'title' => 'opt-setting-editor-1',
-						'description' => 'this is editor setting test 3-1'
+						'id' => 'opt-social-google-plus',
+						'type' => 'text',
+						'title' => 'Google Plus',
+						'description' => ''
 					),
 					array(
-						'id' => 'opt-setting-editor-2',
-						'type' => 'editor',
-						'title' => 'opt-setting-editor-2',
-						'description' => 'this is editor setting test 3-2'
+						'id' => 'opt-social-twitter',
+						'type' => 'text',
+						'title' => 'Twitter',
+						'description' => ''
+					),
+					array(
+						'id' => 'opt-social-instagram',
+						'type' => 'text',
+						'title' => 'Instagram',
+						'description' => ''
+					),
+					array(
+						'id' => 'opt-social-youtube',
+						'type' => 'text',
+						'title' => 'Youtube',
+						'description' => ''
+					),
+					array(
+						'id' => 'opt-social-viemo',
+						'type' => 'text',
+						'title' => 'Vimeo',
+						'description' => ''
+					),
+					array(
+						'id' => 'opt-social-linkedin',
+						'type' => 'text',
+						'title' => 'Linkedin',
+						'description' => ''
+					),
+					array(
+						'id' => 'opt-social-rss',
+						'type' => 'text',
+						'title' => 'RSS',
+						'description' => ''
 					),
 				)
 			); 
