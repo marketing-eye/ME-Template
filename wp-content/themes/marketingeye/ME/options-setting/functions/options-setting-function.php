@@ -145,7 +145,7 @@ $setting_field_id = $args['id'];
                 }
             }
             else {$setting_filed_default="";}
-            if ($setting_filed_default) {
+            if (!get_option($setting_field_id)&&($setting_filed_default)) {
                 update_option($setting_field_id,$setting_filed_default);
             }
 			if ($args['type'] =='media'):
