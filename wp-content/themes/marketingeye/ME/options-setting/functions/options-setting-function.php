@@ -105,8 +105,12 @@ function me_admin_init() {
 										$setting_field_id = $field['id'];
 										$setting_field_type = $field['type'];
 										$setting_filed_title = $field['title'];	
-										empty($arg);
-										$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title);
+                                        if (array_key_exists("default",$field)) {
+                                            $setting_filed_default = $field['default'];
+                                        }
+                                        else $setting_filed_default = "";
+                                        empty($arg);
+										$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default);
                                         add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );    
                                         if ($setting_field_type =='media'):
                                             add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
@@ -132,6 +136,18 @@ function me_option_settings(array $args) {
 $setting_field_id = $args['id'];
 			$setting_field_type = $args['type'];
 			$setting_filed_title = $args['title'];
+            if (array_key_exists('default',$args)) {
+                if (is_array($args['default'])&&array_key_exists('url',$args['default'])) {
+                    $setting_filed_default = $args['default']['url'];
+                }
+                else {
+                    $setting_filed_default = $args['default'];
+                }
+            }
+            else {$setting_filed_default="";}
+            if ($setting_filed_default) {
+                update_option($setting_field_id,$setting_filed_default);
+            }
 			if ($args['type'] =='media'):
 	echo '<input class="options-input-field" type="text" id="image_url" name="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" /><br>'; 
 	echo '<input id="image_upload_button" type="button" class="button" value="Upload Image" /> ';
