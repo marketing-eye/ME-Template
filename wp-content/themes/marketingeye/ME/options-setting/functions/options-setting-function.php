@@ -36,6 +36,8 @@ echo $html_js;
 }
 add_action('wp_footer', 'custom_js_func');
 
+add_filter('wp_default_editor', create_function('', 'return "html";'));
+
 function social_media_list_func() {
     $html = "";
     if ((get_option('opt-social-facebook')))
@@ -235,11 +237,11 @@ $setting_field_id = $args['id'];
     }
     else {
         $settings = array(
-            'quicktags' => $setting_filed_default_editor_quicktags,
-            'media_buttons' => $setting_filed_default_editor_media_buttons,
-            'tinymce' => array(
-                'toolbar1'=> 'outdent,indent,undo,redo',
+            'quicktags' => array(
+                'buttons' => ','
             ),
+            'media_buttons' => $setting_filed_default_editor_media_buttons,
+            'tinymce' => false,
             'textarea_rows'=>'8',
         );
     }
