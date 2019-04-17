@@ -99,9 +99,7 @@ function me_theme_options( $active_tab = '' ) {
 
         <?php
         global $config;
-        if( isset( $_GET[ 'tab' ] ) ) {
-            $active_tab = $_GET[ 'tab' ];
-        }
+        $active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
         ?>
         <div class="option-page-setting-wrapper">
         <h2 class="nav-tab-wrapper">
@@ -114,16 +112,14 @@ function me_theme_options( $active_tab = '' ) {
         <form class="setting-form" method="post" action="options.php">
             <?php wp_nonce_field( 'update-options' ); ?>
             <?php 
-                if( isset( $_GET[ 'tab' ] ) ):
-					$active_tab = $_GET[ 'tab' ];
+             $active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
 	            	foreach ($config->sections as $section) :
 						if ($active_tab==$section['id']) {
 		                    settings_fields('me-'.$section['id']);
 		                    do_settings_sections('me-'.$section['id']);
 						}
-		                endforeach;
+                    endforeach;
                 submit_button();
-            	endif;
             ?>
         </form>
     </div>
@@ -131,8 +127,7 @@ function me_theme_options( $active_tab = '' ) {
 
 <?php
 global $config;
-    				if( isset( $_GET[ 'tab' ] ) ):
-    					$active_tab = $_GET[ 'tab' ];
+             $active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
 	    				foreach ($config->sections as $section) :
 	    					if ($active_tab==$section['id']):	    				
 								foreach ($section['fields'] as $field) :
@@ -143,13 +138,11 @@ global $config;
 								endforeach;
 							endif;
 						endforeach;
-					endif;
 }
 
 function me_admin_init() {
   	global $config;
-    				if( isset( $_GET[ 'tab' ] ) ):
-    					$active_tab = $_GET[ 'tab' ];
+             $active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
 	    				foreach ($config->sections as $section) :
 	    					if ($active_tab==$section['id']):
 			    				add_settings_section( $section['id'],  $section['title'], NULL, 'me-'.$section['id'] );
@@ -162,7 +155,23 @@ function me_admin_init() {
                                         }
                                         else $setting_filed_default = "";
                                         empty($arg);
-										$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default);
+                                        if ($setting_field_type =='editor'):
+                                            $setting_filed_editor_qicktags = true;
+                                            $setting_filed_editor_tinymce = true;
+                                            $setting_filed_editor_media_buttons = true;
+                                            if (array_key_exists("editor_qicktags",$field)) {
+                                                $setting_filed_editor_qicktags = $field['editor_qicktags'];
+                                            }
+                                            if (array_key_exists("editor_tinymce",$field)) {
+                                                $setting_filed_editor_tinymce = $field['editor_tinymce'];
+                                            }
+                                            if (array_key_exists("editor_media_buttons",$field)) {
+                                                $setting_filed_editor_media_buttons = $field['editor_media_buttons'];
+                                            }
+                                            $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'editor_qicktags'=>$setting_filed_editor_qicktags,'editor_tinymce'=>$setting_filed_editor_tinymce,'editor_media_buttons'=>$setting_filed_editor_media_buttons);
+                                        else: 
+                                            $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default);
+                                        endif;
                                         add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );    
                                         if ($setting_field_type =='media'):
                                             add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
@@ -174,7 +183,6 @@ function me_admin_init() {
 
 							endif;
 						endforeach;
-					endif;
 	foreach ($config->sections as $section) :	
 		foreach ($section['fields'] as $field) :
 	register_setting( 'me-'.$section['id'], $field['id'] );
@@ -188,27 +196,53 @@ function me_option_settings(array $args) {
 $setting_field_id = $args['id'];
 			$setting_field_type = $args['type'];
 			$setting_filed_title = $args['title'];
+            $setting_filed_default="";
             if (array_key_exists('default',$args)) {
-                if (is_array($args['default'])&&array_key_exists('url',$args['default'])) {
-                    $setting_filed_default = $args['default']['url'];
-                }
-                else {
-                    $setting_filed_default = $args['default'];
-                }
+                $setting_filed_default = $args['default'];
             }
-            else {$setting_filed_default="";}
             if (!get_option($setting_field_id)&&($setting_filed_default)) {
                 update_option($setting_field_id,$setting_filed_default);
             }
 			if ($args['type'] =='media'):
+                if (array_key_exists('default',$args)) {
+                    $setting_filed_default = $args['default'];
+                }
 	echo '<input class="options-input-field" type="text" id="image_url" name="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" /><br>'; 
 	echo '<input id="image_upload_button" type="button" class="button" value="Upload Image" /> ';
 	?>
 
 	<?php
     elseif ($args['type'] =='editor'):
+        $setting_filed_default_editor_quicktags = true;
+        $setting_filed_default_editor_media_buttons = true;
+        $setting_filed_default_editor_tinymce = true;
+        if (array_key_exists('default',$args)) {
+            if (!$args['default']) {
+                if (array_key_exists('editor_qicktags',$args)) {
+                    $setting_filed_default_editor_quicktags = $args['editor_qicktags'];
+                }
+                if (array_key_exists('editor_qicktags',$args)) {
+                    $setting_filed_default_editor_media_buttons = $args['editor_media_buttons'];
+                }
+                if (array_key_exists('editor_qicktags',$args)) {
+                    $setting_filed_default_editor_tinymce = $args['editor_tinymce'];
+                }
+            }
+        }
     $editor_value = get_option($setting_field_id);
-    $settings = array( 'quicktags'=> false,'tinymce'=> false, 'media_buttons' => false,'textarea_rows'=>'10' );
+    if ($setting_filed_default_editor_tinymce) {
+        $settings = array( 'quicktags'=> $setting_filed_default_editor_quicktags,'media_buttons' => $setting_filed_default_editor_media_buttons,'textarea_rows'=>'8' );
+    }
+    else {
+        $settings = array(
+            'quicktags' => $setting_filed_default_editor_quicktags,
+            'media_buttons' => $setting_filed_default_editor_media_buttons,
+            'tinymce' => array(
+                'toolbar1'=> 'outdent,indent,undo,redo',
+            ),
+            'textarea_rows'=>'8',
+        );
+    }
     wp_editor($editor_value,$setting_field_id, $settings);
 			else:
 			echo '<input class="options-input-field" type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
