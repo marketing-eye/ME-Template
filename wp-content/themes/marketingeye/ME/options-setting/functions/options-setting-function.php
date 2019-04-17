@@ -157,30 +157,35 @@ function me_admin_init() {
                                         }
                                         else $setting_filed_default = "";
                                         empty($arg);
-                                        if ($setting_field_type =='editor'):
-                                            $setting_filed_editor_qicktags = true;
-                                            $setting_filed_editor_tinymce = true;
-                                            $setting_filed_editor_media_buttons = true;
-                                            if (array_key_exists("editor_qicktags",$field)) {
-                                                $setting_filed_editor_qicktags = $field['editor_qicktags'];
-                                            }
-                                            if (array_key_exists("editor_tinymce",$field)) {
-                                                $setting_filed_editor_tinymce = $field['editor_tinymce'];
-                                            }
-                                            if (array_key_exists("editor_media_buttons",$field)) {
-                                                $setting_filed_editor_media_buttons = $field['editor_media_buttons'];
-                                            }
-                                            $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'editor_qicktags'=>$setting_filed_editor_qicktags,'editor_tinymce'=>$setting_filed_editor_tinymce,'editor_media_buttons'=>$setting_filed_editor_media_buttons);
-                                        else: 
-                                            $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default);
-                                        endif;
-                                        add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );    
-                                        if ($setting_field_type =='media'):
-                                            add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
-										elseif ($setting_field_type =='editor'):
-                                            add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );    
-                                        else:
-                                        endif;
+                                       							switch ($setting_field_type) {
+											case 'editor':
+												$setting_filed_editor_qicktags = true;
+												$setting_filed_editor_tinymce = true;
+												$setting_filed_editor_media_buttons = true;
+												if (array_key_exists("editor_qicktags",$field)) {
+													$setting_filed_editor_qicktags = $field['editor_qicktags'];
+												}
+												if (array_key_exists("editor_tinymce",$field)) {
+													$setting_filed_editor_tinymce = $field['editor_tinymce'];
+												}
+												if (array_key_exists("editor_media_buttons",$field)) {
+													$setting_filed_editor_media_buttons = $field['editor_media_buttons'];
+												}
+												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'editor_qicktags'=>$setting_filed_editor_qicktags,'editor_tinymce'=>$setting_filed_editor_tinymce,'editor_media_buttons'=>$setting_filed_editor_media_buttons);
+											case 'select':
+											$select_filed_select_options;
+												if (array_key_exists("select_options",$field)) {
+													$select_filed_select_options = $field['select_options'];
+												}
+												else $select_filed_select_options = "";
+												 $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'select_options'=>array("1","2","3","4"),'default'=>$setting_filed_default);
+											default: 
+												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default);
+										}
+									    add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );
+										if ($setting_field_type =='media'):
+											add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
+										endif;
 								endforeach;
 
 							endif;
@@ -198,58 +203,75 @@ function me_option_settings(array $args) {
 $setting_field_id = $args['id'];
 			$setting_field_type = $args['type'];
 			$setting_filed_title = $args['title'];
-            $setting_filed_default="";
-            if (array_key_exists('default',$args)) {
-                $setting_filed_default = $args['default'];
-            }
-            if (!get_option($setting_field_id)&&($setting_filed_default)) {
-                update_option($setting_field_id,$setting_filed_default);
-            }
-			if ($args['type'] =='media'):
-                if (array_key_exists('default',$args)) {
-                    $setting_filed_default = $args['default'];
-                }
-	echo '<input class="options-input-field" type="text" id="image_url" name="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" /><br>'; 
-	echo '<input id="image_upload_button" type="button" class="button" value="Upload Image" /> ';
-	?>
-
+			$setting_filed_default="";
+			if (array_key_exists('default',$args)) {
+				$setting_filed_default = $args['default'];
+			}
+			if (!get_option($setting_field_id)&&($setting_filed_default)) {
+				update_option($setting_field_id,$setting_filed_default);
+			}
+	switch ($args['type']) {
+		case 'media':
+				if (array_key_exists('default',$args)) {
+					$setting_filed_default = $args['default'];
+				}
+			echo '<input class="options-input-field" type="text" id="image_url" name="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" /><br>'; 
+			echo '<input id="image_upload_button" type="button" class="button" value="Upload Image" /> ';
+			break;
+			?>
+ 			
+ 
 	<?php
-    elseif ($args['type'] =='editor'):
-        $setting_filed_default_editor_quicktags = true;
-        $setting_filed_default_editor_media_buttons = true;
-        $setting_filed_default_editor_tinymce = true;
-        if (array_key_exists('default',$args)) {
-            if (!$args['default']) {
-                if (array_key_exists('editor_qicktags',$args)) {
-                    $setting_filed_default_editor_quicktags = $args['editor_qicktags'];
-                }
-                if (array_key_exists('editor_qicktags',$args)) {
-                    $setting_filed_default_editor_media_buttons = $args['editor_media_buttons'];
-                }
-                if (array_key_exists('editor_qicktags',$args)) {
-                    $setting_filed_default_editor_tinymce = $args['editor_tinymce'];
-                }
-            }
-        }
-    $editor_value = get_option($setting_field_id);
-    if ($setting_filed_default_editor_tinymce) {
-        $settings = array( 'quicktags'=> $setting_filed_default_editor_quicktags,'media_buttons' => $setting_filed_default_editor_media_buttons,'textarea_rows'=>'8' );
-    }
-    else {
-        $settings = array(
-            'quicktags' => array(
-                'buttons' => ','
-            ),
-            'media_buttons' => $setting_filed_default_editor_media_buttons,
-            'tinymce' => false,
-            'textarea_rows'=>'8',
-        );
-    }
-    wp_editor($editor_value,$setting_field_id, $settings);
-			else:
+		case'editor':
+				$setting_filed_default_editor_quicktags = true;
+				$setting_filed_default_editor_media_buttons = true;
+				$setting_filed_default_editor_tinymce = true;
+				$editor_value_default = "";
+				if (array_key_exists('default',$args)) {
+					if (!$args['default']) {
+						if (array_key_exists('editor_qicktags',$args)) {
+							$setting_filed_default_editor_quicktags = $args['editor_qicktags'];
+						}
+						if (array_key_exists('editor_qicktags',$args)) {
+							$setting_filed_default_editor_media_buttons = $args['editor_media_buttons'];
+						}
+						if (array_key_exists('editor_qicktags',$args)) {
+							$setting_filed_default_editor_tinymce = $args['editor_tinymce'];
+						}
+						add_filter('wp_default_editor', create_function('', 'return "html";'));
+					}
+					else {
+						$editor_value_default = $args['default'];
+						add_filter('wp_default_editor', create_function('', 'return "tinymce";'));
+					}
+				}
+			$editor_value = (get_option($setting_field_id)==null)?$editor_value_default:get_option($setting_field_id);
+			if ($setting_filed_default_editor_tinymce) {
+				$settings = array( 'quicktags'=> $setting_filed_default_editor_quicktags,'media_buttons' => $setting_filed_default_editor_media_buttons,'textarea_rows'=>'8' );
+			}
+			else {
+				$settings = array(
+					'quicktags' => array(
+						'buttons' => ','
+					),
+					'media_buttons' => $setting_filed_default_editor_media_buttons,
+					'tinymce' => false,
+					'textarea_rows'=>'8',
+				);
+			}
+			wp_editor($editor_value,$setting_field_id, $settings);
+			break;
+		case 'select':
+			if (array_key_exists('select_options',$args)) {
+				var_dump($args['select_options']);
+				print_r($setting_field_id);
+			}
+			break;
+		default:
 			echo '<input class="options-input-field" type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
-			endif;
+	}
 }
+
 
 function options_image_setting_logo_preview(array $args) {
 	$setting_field_id = $args['id'];

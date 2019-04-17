@@ -33,7 +33,7 @@ class global_setting_config {
 						'default' => get_template_directory_uri() . '/ME/images/logo.jpg'
 					),
 					array(
-						'id' => 'opt-general-custom-css',
+						'id' => 'opt-general-custom-css2',
 						'type' => 'editor',
 						'title' => 'Custom CSS',
 						'description' => 'Paste your custom CSS code here.',
@@ -43,7 +43,7 @@ class global_setting_config {
 						'editor_media_buttons' => false
 					),
 					array(
-						'id' => 'opt-general-custom-js',
+						'id' => 'opt-general-custom-js2',
 						'type' => 'editor',
 						'title' => 'Custom JS',
 						'description' => 'Paste your custom JS code here.',
@@ -65,11 +65,17 @@ class global_setting_config {
 			); 
 		//Footer Options
 		$this->sections[] = array(
-				'id' => 'footer-options',
+				'id' => 'footer-options2',
 				'icon' => 'el-icon-cogs',
 				'title' => 'Footer Options',
 				'fields' => array(
-					
+					array(
+						'id' => 'opt-footer-sidebar-layout',
+						'type' => 'select',
+						'title' => 'Footer sidebar layout',
+						'description' => '',
+						'select_options' =>array("1","2","3","4")
+					),
 				)
 			); 
 		//Social Settings
@@ -128,6 +134,32 @@ class global_setting_config {
 					)
 				)
 			); 
+		//Contact Settings
+		$this->sections[] = array(
+				'id' => 'contact-settings',
+				'icon' => 'el-icon-cogs',
+				'title' => 'Contact Settings',
+				'fields' => array(
+					array(
+						'id' => 'opt-contact-phone-number',
+						'type' => 'text',
+						'title' => 'Phone numbers',
+						'description' => '',
+					),
+					array(
+						'id' => 'opt-contact-email',
+						'type' => 'text',
+						'title' => 'Email',
+						'description' => '',
+					),
+					array(
+						'id' => 'opt-contact-address',
+						'type' => 'text',
+						'title' => 'Address',
+						'description' => '',
+					)
+				)
+			); 
 		//404 Settings
 		$this->sections[] = array(
 				'id' => '404-settings',
@@ -138,29 +170,32 @@ class global_setting_config {
 						'id' => 'opt-404-header-title',
 						'type' => 'text',
 						'title' => '404 header title',
-						'description' => ''
+						'description' => '',
+						'default' => 'Error Page'
 					),
 					array(
 						'id' => 'opt-404-header-subtitle',
 						'type' => 'text',
 						'title' => '404 header subtitle',
-						'description' => ''
+						'description' => '',
+						'default' => 'Sorry :('
 					),
 					array(
 						'id' => 'opt-404-title',
 						'type' => 'text',
 						'title' => '404 title',
-						'description' => ''
+						'description' => '',
+						'default' => '404'
 					),
 					array(
-						'id' => 'opt-404-text',
+						'id' => 'opt-404-text2',
 						'type' => 'editor',
 						'title' => '404 Text',
 						'description' => '',
+						'default' => '<p>Sorry, the page you are looking for could not be found. Please navigate to the home page and use the main menu.</p>'
 					)
 				)
 			); 
-
 	}
 }
 
