@@ -65,7 +65,7 @@ class global_setting_config {
 			); 
 		//Footer Options
 		$this->sections[] = array(
-				'id' => 'footer-options2',
+				'id' => 'footer-options',
 				'icon' => 'el-icon-cogs',
 				'title' => 'Footer Options',
 				'fields' => array(
@@ -74,7 +74,87 @@ class global_setting_config {
 						'type' => 'select',
 						'title' => 'Footer sidebar layout',
 						'description' => '',
-						'select_options' =>array("1","2","3","4")
+						'select_options' => array ("1"=>"1","2"=>"2","3"=>"3","4"=>"4")
+					),
+					array(
+						'id' => 'opt-footer-widget-1-columns-width',
+						'type' => 'select',
+						'title' => 'Widget 1 columns width',
+						'description' => '',
+						'select_options' => array (
+							"1/12 columns"=>"1",
+							"2/12 columns"=>"2",
+							"3/12 columns"=>"3",
+							"4/12 columns"=>"4",
+							"5/12 columns"=>"5",
+							"6/12 columns"=>"6",
+							"7/12 columns"=>"7",
+							"8/12 columns"=>"8",
+							"9/12 columns"=>"9",
+							"10/12 columns"=>"10",
+							"11/12 columns"=>"11",
+							"12/12 columns"=>"12",
+						)
+					),
+					array(
+						'id' => 'opt-footer-widget-2-columns-width',
+						'type' => 'select',
+						'title' => 'Widget 2 columns width',
+						'description' => '',
+						'select_options' => array (
+							"1/12 columns"=>"1",
+							"2/12 columns"=>"2",
+							"3/12 columns"=>"3",
+							"4/12 columns"=>"4",
+							"5/12 columns"=>"5",
+							"6/12 columns"=>"6",
+							"7/12 columns"=>"7",
+							"8/12 columns"=>"8",
+							"9/12 columns"=>"9",
+							"10/12 columns"=>"10",
+							"11/12 columns"=>"11",
+							"12/12 columns"=>"12",
+						)
+					),
+					array(
+						'id' => 'opt-footer-widget-3-columns-width',
+						'type' => 'select',
+						'title' => 'Widget 3 columns width',
+						'description' => '',
+						'select_options' => array (
+							"1/12 columns"=>"1",
+							"2/12 columns"=>"2",
+							"3/12 columns"=>"3",
+							"4/12 columns"=>"4",
+							"5/12 columns"=>"5",
+							"6/12 columns"=>"6",
+							"7/12 columns"=>"7",
+							"8/12 columns"=>"8",
+							"9/12 columns"=>"9",
+							"10/12 columns"=>"10",
+							"11/12 columns"=>"11",
+							"12/12 columns"=>"12",
+						)
+					),
+					array(
+						'id' => 'opt-footer-widget-4-columns-width',
+						'type' => 'select',
+						'title' => 'Widget 4 columns width',
+						'description' => '',
+						'select_options' => array (
+							"1/12 columns"=>"1",
+							"2/12 columns"=>"2",
+							"3/12 columns"=>"3",
+							"4/12 columns"=>"4",
+							"5/12 columns"=>"5",
+							"6/12 columns"=>"6",
+							"7/12 columns"=>"7",
+							"8/12 columns"=>"8",
+							"9/12 columns"=>"9",
+							"10/12 columns"=>"10",
+							"11/12 columns"=>"11",
+							"12/12 columns"=>"12",
+						)
 					),
 				)
 			); 

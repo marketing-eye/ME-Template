@@ -6,11 +6,12 @@
  */
 
 /*import ME_script*/ 
-function site_options_script() {
-	wp_enqueue_script('options_setting_js',get_template_directory_uri().'/ME/options-setting/js/options-setting.js',array(),'1.0.0.',true);
-	wp_register_style( 'options_style', get_stylesheet_directory_uri() . '/ME/options-setting/css/options-setting-styles.css', false, '1.0.0' );
+function site_options_script($hook) {
+	if ($hook = 'toplevel_page_me-theme-options') {
+		wp_enqueue_script('options_setting_js',get_template_directory_uri().'/ME/options-setting/js/options-setting.js',array(),'1.0.0.',true);
+	}
 }
-add_action( 'wp_enqueue_scripts', 'site_options_script' );
+add_action( 'admin_enqueue_scripts', 'site_options_script' );
 
 function site_options_style() {
 	wp_register_style( 'options_style', get_stylesheet_directory_uri() . '/ME/options-setting/css/options-setting-styles.css', false, '1.0.0' );
@@ -157,7 +158,7 @@ function me_admin_init() {
                                         }
                                         else $setting_filed_default = "";
                                         empty($arg);
-                                       							switch ($setting_field_type) {
+                                       	switch ($setting_field_type) {
 											case 'editor':
 												$setting_filed_editor_qicktags = true;
 												$setting_filed_editor_tinymce = true;
@@ -171,16 +172,21 @@ function me_admin_init() {
 												if (array_key_exists("editor_media_buttons",$field)) {
 													$setting_filed_editor_media_buttons = $field['editor_media_buttons'];
 												}
-												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'editor_qicktags'=>$setting_filed_editor_qicktags,'editor_tinymce'=>$setting_filed_editor_tinymce,'editor_media_buttons'=>$setting_filed_editor_media_buttons);
+												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'editor_qicktags'=>$setting_filed_editor_qicktags,'editor_tinymce'=>$setting_filed_editor_tinymce,'editor_media_buttons'=>$setting_filed_editor_media_buttons,'class'=>$section['id']." ".$setting_field_id."-row");
+												break;
 											case 'select':
-											$select_filed_select_options;
+												$select_filed_select_options="";
 												if (array_key_exists("select_options",$field)) {
 													$select_filed_select_options = $field['select_options'];
 												}
-												else $select_filed_select_options = "";
-												 $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'select_options'=>array("1","2","3","4"),'default'=>$setting_filed_default);
+												else {
+													$select_filed_select_options = "";
+												}
+
+												 $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'select_options'=>$select_filed_select_options,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row");
+												 break;
 											default: 
-												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default);
+												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row");
 										}
 									    add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );
 										if ($setting_field_type =='media'):
@@ -263,8 +269,14 @@ $setting_field_id = $args['id'];
 			break;
 		case 'select':
 			if (array_key_exists('select_options',$args)) {
-				var_dump($args['select_options']);
-				print_r($setting_field_id);
+				echo '<select name="'.$setting_field_id.'">';
+				foreach ($args['select_options'] as $key => $select_option) {
+					if (get_option($setting_field_id)==$select_option) {
+						echo '<option selected value="'.$select_option.'">' .$key. '</option>';
+					}
+					else echo '<option value="'.$select_option.'">' .$key. '</option>';
+				}
+				echo '</select>';
 			}
 			break;
 		default:

@@ -19,7 +19,9 @@ border-bottom: none;
 	width: 100%;
 	max-width: 700px;
 }
-
+.option-page-setting-wrapper .form-table select {
+    min-width: 200px;
+}
 .option-page-setting-wrapper .form-table .upload-image {
     max-width: 100px;
 }
