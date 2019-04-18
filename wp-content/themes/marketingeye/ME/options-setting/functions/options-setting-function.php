@@ -37,7 +37,47 @@ echo $html_js;
 }
 add_action('wp_footer', 'custom_js_func');
 
-add_filter('wp_default_editor', create_function('', 'return "html";'));
+//regist sidebar
+add_action( 'widgets_init', 'theme_slug_widgets_init' );
+function theme_slug_widgets_init() {
+    register_sidebar( array(
+        'name' => __( 'Footer Widget 1', 'marketingeye' ),
+        'id' => 'footer-widget-1',
+        'description' => __( 'This is a footer widget 1', 'marketingeye' ),
+        'before_widget' => '<div class="footer-widget footer-widget-1">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => '</h2>',
+    ) );
+    register_sidebar( array(
+        'name' => __( 'Footer Widget 2', 'marketingeye' ),
+        'id' => 'footer-widget-2',
+        'description' => __( 'This is a footer widget 2', 'marketingeye' ),
+        'before_widget' => '<div class="footer-widget footer-widget-2">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => '</h2>',
+    ) );
+    register_sidebar( array(
+        'name' => __( 'Footer Widget 3', 'marketingeye' ),
+        'id' => 'footer-widget-3',
+        'description' => __( 'This is a footer widget 3', 'marketingeye' ),
+        'before_widget' => '<div class="footer-widget footer-widget-3">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => '</h2>',
+    ) );
+    register_sidebar( array(
+        'name' => __( 'Footer Widget 4', 'marketingeye' ),
+        'id' => 'footer-widget-4',
+        'description' => __( 'This is a footer widget4', 'marketingeye' ),
+        'before_widget' => '<div class="footer-widget footer-widget-4">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => '</h2>',
+    ) );
+}
+
 
 function social_media_list_func() {
     $html = "";

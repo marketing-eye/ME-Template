@@ -33,7 +33,7 @@ class global_setting_config {
 						'default' => get_template_directory_uri() . '/ME/images/logo.jpg'
 					),
 					array(
-						'id' => 'opt-general-custom-css2',
+						'id' => 'opt-general-custom-css',
 						'type' => 'editor',
 						'title' => 'Custom CSS',
 						'description' => 'Paste your custom CSS code here.',
@@ -43,7 +43,7 @@ class global_setting_config {
 						'editor_media_buttons' => false
 					),
 					array(
-						'id' => 'opt-general-custom-js2',
+						'id' => 'opt-general-custom-js',
 						'type' => 'editor',
 						'title' => 'Custom JS',
 						'description' => 'Paste your custom JS code here.',
@@ -156,6 +156,12 @@ class global_setting_config {
 							"12/12 columns"=>"12",
 						)
 					),
+					array(
+						'id' => 'opt-footer-copyright',
+						'type' => 'editor',
+						'title' => 'Footer copyright Text',
+						'description' => '',
+					)
 				)
 			); 
 		//Social Settings

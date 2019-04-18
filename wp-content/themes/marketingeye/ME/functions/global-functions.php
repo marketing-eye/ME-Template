@@ -36,3 +36,18 @@ add_action('admin_enqueue_scripts', function(){
     */
     wp_enqueue_media();
 });
+
+function test_func( $atts ) {
+$html = "";
+$html .= "<img src='".get_option('opt-general-logo')."'/>";
+$html .= "<img src='".get_option('opt-general-logo-2')."'/>";
+$html .= "<div>".get_option('opt-footer-sidebar-layout')."</div>";
+$html .= "<div>opt-footer-widget-1-columns-width: ".get_option('opt-footer-widget-1-columns-width')."</div>";
+$html .= "<div>opt-footer-widget-2-columns-width ".get_option('opt-footer-widget-2-columns-width')."</div>";
+$html .= "<div>opt-footer-widget-3-columns-width ".get_option('opt-footer-widget-3-columns-width')."</div>";
+$html .= "<div>opt-footer-widget-4-columns-width ".get_option('opt-footer-widget-4-columns-width')."</div>";
+$html .= "<style type='text/css'>".get_option('opt-general-custom-css')."</style>";
+$html .= "<script type='text/javascript'>".get_option('opt-general-custom-js')."</script>";
+return $html;
+}
+add_shortcode( 'test', 'test_func' );
