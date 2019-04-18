@@ -111,9 +111,9 @@ if ( ! function_exists( 'understrap_theme_customize_register' ) ) {
 				$wp_customize,
 				'understrap_sidebar_position',
 				array(
-					'label'             => __( 'Sidebar Positioning', 'understrap' ),
+					'label'             => __( 'Post Sidebar Positioning', 'understrap' ),
 					'description'       => __(
-						'Set sidebar\'s default position. Can either be: right, left, both or none. Note: this can be overridden on individual pages.',
+						'Set post sidebar\'s default position. Can either be: right, left, both or none. Note: this can be overridden on individual pages.',
 						'understrap'
 					),
 					'section'           => 'understrap_theme_layout_options',

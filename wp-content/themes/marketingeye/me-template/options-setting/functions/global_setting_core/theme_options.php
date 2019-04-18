@@ -23,14 +23,14 @@ class global_setting_config {
 						'type' => 'media',
 						'title' => "Logo update",
 						'desc' => 'Upload your custom logo image',
-						'default' =>  get_template_directory_uri() . '/ME/images/logo.jpg'
+						'default' =>  get_template_directory_uri() . '/me-template/images/logo.jpg'
 					),
 					array(
 						'id' => 'opt-general-logo-2',
 						'type' => 'media',
 						'title' => "Logo update 2",
 						'desc' => 'Upload your second custom logo image',
-						'default' => get_template_directory_uri() . '/ME/images/logo.jpg'
+						'default' => get_template_directory_uri() . '/me-template/images/logo.jpg'
 					),
 					array(
 						'id' => 'opt-general-custom-css',
