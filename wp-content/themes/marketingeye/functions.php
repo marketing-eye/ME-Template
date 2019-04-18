@@ -35,5 +35,5 @@ foreach ( $understrap_includes as $file ) {
 	require_once $filepath;
 }
 
-require_once get_template_directory() . '/ME/functions/global-functions.php';
-require_once get_template_directory() . '/ME/functions/site-unique-functions.php';
+require_once get_template_directory() . '/me-template/functions/global-functions.php';
+require_once get_template_directory() . '/me-template/functions/site-unique-functions.php';
