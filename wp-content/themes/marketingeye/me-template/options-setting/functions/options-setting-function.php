@@ -38,8 +38,8 @@ echo $html_js;
 add_action('wp_footer', 'custom_js_func');
 
 //regist sidebar
-add_action( 'widgets_init', 'theme_slug_widgets_init' );
-function theme_slug_widgets_init() {
+add_action( 'widgets_init', 'footer_column_widgets_init' );
+function footer_column_widgets_init() {
     register_sidebar( array(
         'name' => __( 'Footer Widget 1', 'marketingeye' ),
         'id' => 'footer-widget-1',
@@ -78,7 +78,27 @@ function theme_slug_widgets_init() {
     ) );
 }
 
-
+add_action( 'widgets_init', 'footer_extrs_widgets_init' );
+function footer_extrs_widgets_init() {
+    register_sidebar( array(
+        'name' => __( 'Footer Widget Above', 'marketingeye' ),
+        'id' => 'footer-widget-above',
+        'description' => __( 'This is the footer widget above column footer widget', 'marketingeye' ),
+        'before_widget' => '<div class="footer-widget footer-widget-above">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => '</h2>',
+    ) );
+	register_sidebar( array(
+        'name' => __( 'Footer Widget Underneath', 'marketingeye' ),
+        'id' => 'footer-widget-underneath',
+        'description' => __( 'This is the footer widget underneath column footer widget', 'marketingeye' ),
+        'before_widget' => '<div class="footer-widget footer-widget-underneath">',
+	'after_widget'  => '</div>',
+	'before_title'  => '<h2 class="widgettitle">',
+	'after_title'   => '</h2>',
+    ) );
+}
 function social_media_list_func() {
     $html = "";
     if ((get_option('opt-social-facebook')))
