@@ -75,3 +75,12 @@ border-bottom: none;
 .option-page-setting-wrapper .form-table .upload-image {
 	max-width: 100px;
 }
+.header-options .header-display-fields {
+	display: none;
+}
+.header-options,.header-options.show {
+	display: block;
+}
+.header-options.hide {
+	display: none;
+}

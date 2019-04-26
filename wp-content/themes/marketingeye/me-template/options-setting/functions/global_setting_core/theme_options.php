@@ -85,7 +85,7 @@ function list_header_section_fields() {
                         'right' => __( 'Right', 'marketingeye' ),
                     ),
                     'section' => array( // Section will show (main or secondary)    
-                        'main'      => array( 'template1', 'template3'),
+                        'main'      => array( 'template1'),
                         'secondary' => array( 'template2')
                     ),                
                 );
@@ -121,8 +121,8 @@ function list_header_section_fields() {
                         'right' => __( 'Right', 'marketingeye' )
                     ),
                     'section' => array( // Section will show (main or secondary)    
-                        'main'      => array( 'template1', 'template3'),
-                        'secondary' => array( 'template2')
+                        'main'      => array( 'template3', 'template2'),
+                        'secondary' => array( 'template1')
                     ),                     
                 );
              
@@ -145,20 +145,9 @@ function list_header_section_fields() {
                         'right' => __( 'Right', 'marketingeye' )
                     ),
                     'section' => array( // Section will show (main or secondary)    
-                        'main'      => array('DHC'),
-                        'secondary' => array( 'construction', 'mechanic', 'cleaning', 'autoshop', 'carpenter', 'metal_construction', 'electrician', 'movers', 'logistics' )
-                    ),                     
-                );
-                $test = array(
-                    'title' =>  __( 'test', 'marketingeye' ),
-                    'pos'   =>  array(
-                        'left'  => __( 'Left', 'marketingeye' ), 
-                        'right' => __( 'Right', 'marketingeye' )
-                    ),
-                    'section' => array( // Section will show (main or secondary)    
                         'main'      => array( 'template1', 'template3'),
                         'secondary' => array( 'template2')
-                    ),                     
+                    ),                            
                 );
                 // Header elements for main section
                 $main_section_elems = array(
@@ -168,7 +157,6 @@ function list_header_section_fields() {
                     'opt-header-call-to-action' => $call_to_action,
                     'opt-header-contact-info' => $contact_info,
                     'opt-header-socials' => $socials,
-                    'opt-header-test' => $test,
                 );
                 
                 // Header elements for secondary section
@@ -198,15 +186,13 @@ function list_header_section_fields() {
                 foreach ( $main_section_elems as $elem_key => $elem ):
                     
                     $fields[] = array(
-                        'id'        =>  $elem_key . '-main-4',
+                        'id'        =>  $elem_key . '-main',
                         'type'      =>  'radio',
                         'title'     =>  $elem['title'],
                         'default' => 'on',
-                        'required'  =>  array( 
-                            array( 'opt-header-type-select', '=', $elem['section']['main'] )
-                        ),
+                        'required'  =>  $elem['section']['main']
                     ); 
-                
+
                 endforeach;
                 /*
                 // Start secondary section
