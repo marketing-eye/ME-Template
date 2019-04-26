@@ -48,6 +48,49 @@ $html .= "<div>opt-footer-widget-3-columns-width ".get_option('opt-footer-widget
 $html .= "<div>opt-footer-widget-4-columns-width ".get_option('opt-footer-widget-4-columns-width')."</div>";
 $html .= "<style type='text/css'>".get_option('opt-general-custom-css')."</style>";
 $html .= "<script type='text/javascript'>".get_option('opt-general-custom-js')."</script>";
-return $html;
+$html .= "<div>opt-header-style: ".get_option('opt-header-type-select')."</div>";
+$header = get_option('opt-header-type-select');
+if (in_array($header,get_option('opt-header-logo-main-header-display'))) {
+    $html .= "<div>opt-header-logo-main: ".get_option('opt-header-logo-main')."</div>";
+}
+if (in_array($header,get_option('opt-header-logo-2-main-header-display'))) {
+    $html .= "<div>opt-header-logo-2-main: ".get_option('opt-header-logo-2-main')."</div>";
+}
+if (in_array($header,get_option('opt-header-main-menu-main-header-display'))) {
+    $html .= "<div>opt-header-main-menu-main: ".get_option('opt-header-main-menu-main')."</div>";
+}
+if (in_array($header,get_option('opt-header-call-to-action-main-header-display'))) {
+    $html .= "<div>opt-header-call-to-action-main: ".get_option('opt-header-call-to-action-main')."</div>";
+}
+if (in_array($header,get_option('opt-header-contact-info-main-header-display'))) {
+    $html .= "<div>opt-header-contact-info-main: ".get_option('opt-header-contact-info-main')."</div>";
+}
+if (in_array($header,get_option('opt-header-socials-main-header-display'))) {
+    $html .= "<div>opt-header-socials-main: ".get_option('opt-header-socials-main')."</div>";
+}
+
+if (in_array($header,get_option('opt-header-logo-secondary-header-display'))) {
+    $html .= "<div>opt-header-logo-secondary: ".get_option('opt-header-logo-secondary')."</div>";
+}
+if (in_array($header,get_option('opt-header-logo-2-secondary-header-display'))) {
+    $html .= "<div>opt-header-logo-2-secondary: ".get_option('opt-header-logo-2-secondary')."</div>";
+}
+if (in_array($header,get_option('opt-header-main-menu-secondary-header-display'))) {
+    $html .= "<div>opt-header-main-menu-secondary: ".get_option('opt-header-main-menu-secondary')."</div>";
+}
+if (in_array($header,get_option('opt-header-call-to-action-secondary-header-display'))) {
+    $html .= "<div>opt-header-call-to-action-secondary: ".get_option('opt-header-call-to-action-secondary')."</div>";
+}
+if (in_array($header,get_option('opt-header-contact-info-secondary-header-display'))) {
+    $html .= "<div>opt-header-contact-info-secondary: ".get_option('opt-header-contact-info-secondary')."</div>";
+}
+if (in_array($header,get_option('opt-header-socials-secondary-header-display'))) {
+    $html .= "<div>opt-header-socials-secondary: ".get_option('opt-header-socials-secondary')."</div>";
+}
+
+
+
+
+echo $html;
 }
 add_shortcode( 'test', 'test_func' );

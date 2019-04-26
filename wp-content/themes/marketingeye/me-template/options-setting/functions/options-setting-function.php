@@ -351,12 +351,15 @@ $setting_field_id = $args['id'];
 			}
 			break;
 		case 'radio':
+			$header_element_display = array();
 			if (array_key_exists('required',$args)) {
 				echo "<div class='header-display-fields'>";
 				foreach($args['required'] as $key => $required_header) {
 					echo "<div class='header-display-field'>".$required_header."</div>";
+					$header_element_display[$key] = $required_header;
 				}
 				echo "</div>";
+				update_option($setting_field_id.'-header-display', $header_element_display);
 			}
 			$options = get_option($setting_field_id);
 			$checked = ($options == 'off' ? ' checked="checked"' : '');

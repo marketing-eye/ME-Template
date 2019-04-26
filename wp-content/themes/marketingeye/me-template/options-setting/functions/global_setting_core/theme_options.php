@@ -162,6 +162,7 @@ function list_header_section_fields() {
                 // Header elements for secondary section
                 $seondary_section_elems = array(
                     'opt-header-logo' => $logo,
+                    'opt-header-logo-2' => $logo2,
                     'opt-header-main-menu' => $main_menu,
                     'opt-header-call-to-action' => $call_to_action,
                     'opt-header-contact-info' => $contact_info,
@@ -194,37 +195,28 @@ function list_header_section_fields() {
                     ); 
 
                 endforeach;
-                /*
+                // End main section
                 // Start secondary section
                 $fields[] = array(
                     'id' => 'opt-header-secondary-section-start',
-                    'type' => 'section',
-                    'title' => __( 'Secondary Section', 'marketingeye' ),
-                    'subtitle' => __('', 'marketingeye' ),
-                    'indent' => true,
-                    'required' => array( 'opt-header-type-select', '=', $headers_has_secondary )
+                    'type' => 'heading',
+                    'title' => 'Secondary Section'
                 );
                 
                 foreach ( $seondary_section_elems as $elem_key => $elem ):
                     
                     $fields[] = array(
-                        'id'        =>  $elem_key . '_secondary',
-                        'type'      =>  'switch',
+                        'id'        =>  $elem_key . '-secondary',
+                        'type'      =>  'radio',
                         'title'     =>  $elem['title'],
-                        'subtitle'  =>  $elem['subtitle'],
-                        'default'   =>  1,
-                        'on'        =>  __( 'Show', 'marketingeye' ),
-                        'off'       =>  __( 'Don\'t show', 'marketingeye' ),
-                        'required'  =>  array( 
-                            array( 'opt-header-type-select', '=', $elem['dep'] ),
-                            array( 'opt-header-type-select', '=', $elem['section']['secondary'] ),
-                            array( 'opt-header-type-select', '=', $headers_has_secondary ),
-                        ),
+                        'default' => 'on',
+                        'required'  =>  $elem['section']['secondary']
                     ); 
                 
                 endforeach;
                 
                 // End secondary section
+                /*
                 $fields[] = array(
                     'id' => 'opt-header-secondary-section-end',
                     'type' => 'section',
