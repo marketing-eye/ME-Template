@@ -219,6 +219,12 @@ function me_admin_init() {
                                         else $setting_filed_default = "";
                                         empty($arg);
                                        	switch ($setting_field_type) {
+                                       		case 'radio':
+                                       			$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-rows option-radio");
+                                       			break;
+                                       		case 'heading':
+                                       			$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-rows option-heading");
+                                       			break;
 											case 'editor':
 												$setting_filed_editor_qicktags = true;
 												$setting_filed_editor_tinymce = true;
@@ -232,7 +238,7 @@ function me_admin_init() {
 												if (array_key_exists("editor_media_buttons",$field)) {
 													$setting_filed_editor_media_buttons = $field['editor_media_buttons'];
 												}
-												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'editor_qicktags'=>$setting_filed_editor_qicktags,'editor_tinymce'=>$setting_filed_editor_tinymce,'editor_media_buttons'=>$setting_filed_editor_media_buttons,'class'=>$section['id']." ".$setting_field_id."-row");
+												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'editor_qicktags'=>$setting_filed_editor_qicktags,'editor_tinymce'=>$setting_filed_editor_tinymce,'editor_media_buttons'=>$setting_filed_editor_media_buttons,'class'=>$section['id']." ".$setting_field_id."-row option-editor");
 												break;
 											case 'select':
 												$select_filed_select_options="";
@@ -243,10 +249,10 @@ function me_admin_init() {
 													$select_filed_select_options = "";
 												}
 
-												 $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'select_options'=>$select_filed_select_options,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row");
+												 $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'select_options'=>$select_filed_select_options,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row option-select");
 												 break;
 											default: 
-												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row");
+												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row option-text");
 										}
 									    add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );
 										if ($setting_field_type =='media'):
@@ -277,6 +283,8 @@ $setting_field_id = $args['id'];
 				update_option($setting_field_id,$setting_filed_default);
 			}
 	switch ($args['type']) {
+		case 'heading':
+			break;
 		case 'media':
 				if (array_key_exists('default',$args)) {
 					$setting_filed_default = $args['default'];
@@ -338,6 +346,13 @@ $setting_field_id = $args['id'];
 				}
 				echo '</select>';
 			}
+			break;
+		case 'radio':
+			$options = get_option($setting_field_id);
+			$checked = ($options == 'off' ? ' checked="checked"' : '');
+			echo "<label class='switch'><input class='options-input-field' id='".$setting_field_id."' name='".$setting_field_id."' type='checkbox' value='off' {$checked} /><span class='slider'></span></label>";
+			?>
+        <?php
 			break;
 		default:
 			echo '<input class="options-input-field" type="text" name="'.$setting_field_id.'" id="'.$setting_field_id.'" value="'.get_option($setting_field_id).'" />';
