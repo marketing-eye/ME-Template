@@ -62,6 +62,9 @@ if (in_array($header,get_option('opt-header-main-menu-main-header-display'))) {
 if (in_array($header,get_option('opt-header-call-to-action-main-header-display'))) {
     $html .= "<div>opt-header-call-to-action-main: ".get_option('opt-header-call-to-action-main')."</div>";
 }
+if (in_array($header,get_option('opt-header-call-to-action-2-main-header-display'))) {
+    $html .= "<div>opt-header-call-to-action-2-main: ".get_option('opt-header-call-to-action-2-main')."</div>";
+}
 if (in_array($header,get_option('opt-header-contact-info-main-header-display'))) {
     $html .= "<div>opt-header-contact-info-main: ".get_option('opt-header-contact-info-main')."</div>";
 }
@@ -81,14 +84,44 @@ if (in_array($header,get_option('opt-header-main-menu-secondary-header-display')
 if (in_array($header,get_option('opt-header-call-to-action-secondary-header-display'))) {
     $html .= "<div>opt-header-call-to-action-secondary: ".get_option('opt-header-call-to-action-secondary')."</div>";
 }
+if (in_array($header,get_option('opt-header-call-to-action-2-secondary-header-display'))) {
+    $html .= "<div>opt-header-call-to-action-2-secondary: ".get_option('opt-header-call-to-action-2-secondary')."</div>";
+}
 if (in_array($header,get_option('opt-header-contact-info-secondary-header-display'))) {
     $html .= "<div>opt-header-contact-info-secondary: ".get_option('opt-header-contact-info-secondary')."</div>";
 }
 if (in_array($header,get_option('opt-header-socials-secondary-header-display'))) {
     $html .= "<div>opt-header-socials-secondary: ".get_option('opt-header-socials-secondary')."</div>";
 }
-
-
+$html .= "<div>opt-header-title-enable: ".get_option('opt-header-title-enable')."</div>";
+$html .= "<div>opt-header-breadcrumb-enable: ".get_option('opt-header-breadcrumb -enable')."</div>";
+$html .= "<div>opt-header-bg-image-default: ".get_option('opt-header-bg-image-default')."</div>";
+if (get_option('opt-call-to-action-1-text')&&get_option('opt-call-to-action-1-link')) {
+$html .= "<div>opt-call-to-action-1-text: ".get_option('opt-call-to-action-1-text')."</div>";
+$html .= "<div>opt-call-to-action-1-link: ".get_option('opt-call-to-action-1-link')."</div>";
+}
+echo "<br>";
+echo "opt-header-call-to-action-main: ".get_option('opt-header-call-to-action-main');
+echo "<br>";
+echo "opt-header-call-to-action-secondary: ".get_option('opt-header-call-to-action-secondary');
+echo "<br>";
+echo "<br>";
+echo "opt-header-call-to-action-2-main: ".get_option('opt-header-call-to-action-2-main');
+echo "<br>";
+echo "opt-header-call-to-action-2-secondary: ".get_option('opt-header-call-to-action-2-secondary');
+echo "<br>";
+if (in_array($header,get_option('opt-header-call-to-action-2-main-header-display'))) {
+    if (get_option('opt-header-call-to-action-2-main')=="on"&&get_option('opt-call-to-action-2-text')&&get_option('opt-call-to-action-2-link')) {
+       $html .= "<div>opt-call-to-action-2-text: ".get_option('opt-call-to-action-2-text')."</div>";
+        $html .= "<div>opt-call-to-action-2-link: ".get_option('opt-call-to-action-2-link')."</div>";
+    }
+}
+else if (in_array($header,get_option('opt-header-call-to-action-2-secondary-header-display'))) {
+    if (get_option('opt-header-call-to-action-2-secondary')=="on"&&get_option('opt-call-to-action-2-text')&&get_option('opt-call-to-action-2-link')) {
+       $html .= "<div>opt-call-to-action-2-text: ".get_option('opt-call-to-action-2-text')."</div>";
+        $html .= "<div>opt-call-to-action-2-link: ".get_option('opt-call-to-action-2-link')."</div>";
+    }
+}
 
 
 echo $html;

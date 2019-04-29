@@ -75,12 +75,26 @@ border-bottom: none;
 .option-page-setting-wrapper .form-table .upload-image {
 	max-width: 100px;
 }
+.option-page-setting-wrapper .form-table .option-heading th {
+    width: 100%;
+    font-size: 16px;
+    line-height: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.option-page-setting-wrapper .form-table .option-heading th:before {
+    content: "";
+    display: block;
+    border-top: 1px solid black;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
 .header-options .header-display-fields {
 	display: none;
 }
-.header-options,.header-options.show {
+.header-options,.header-options.show,.opt-call-to-action-2-text-row.show {
 	display: block;
 }
-.header-options.hide {
+.header-options.hide,.opt-call-to-action-2-text-row.hide {
 	display: none;
 }

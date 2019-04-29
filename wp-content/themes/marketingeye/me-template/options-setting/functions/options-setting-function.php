@@ -259,7 +259,7 @@ function me_admin_init() {
 										}
 										add_settings_field( $field['id'], $field['title'], 'me_option_settings', 'me-'.$section['id'], $section['id'],$arg );
 										if ($setting_field_type =='media'):
-											add_settings_field($field["id"]."upload-image", 'Logo Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
+											add_settings_field($field["id"]."upload-image", 'Image Preview', 'options_image_setting_logo_preview', 'me-'.$section['id'], $section['id'],$arg);
 										endif;
 								endforeach;
 
