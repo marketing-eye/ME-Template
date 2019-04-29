@@ -1,3 +1,16 @@
-body {
-
+.header-main-section {
+	width: 100%;
+	background-color: #000;
+	padding: 20px 0;
+}
+.header-main-section .header-main-section-left-part {
+	max-width: 340px;
+	width: auto;
+	float: left;
+}
+.header-main-section .header-main-section-right-part {
+	float: right;
+}
+.header-main-section .header-main-section-right-part .header-main-section-meta-part {
+    text-align: right;
 }

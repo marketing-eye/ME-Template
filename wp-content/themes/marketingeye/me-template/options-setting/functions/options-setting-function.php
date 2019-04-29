@@ -100,7 +100,7 @@ function footer_extrs_widgets_init() {
 	) );
 }
 function social_media_list_func() {
-	$html = "";
+	$html = "<div class='social-media-list-wrapper'>";
 	if ((get_option('opt-social-facebook')))
 		{
 		$html.= trim(get_option('opt-social-facebook')) != '' ? '<a href="' . esc_url(get_option('opt-social-facebook')) . '" target="_blank"><i class="fa fa-facebook"></i></a>' : '';
@@ -133,6 +133,7 @@ function social_media_list_func() {
 		{
 		$html.= trim(get_option('opt-social-rss')) != '' ? '<a href="' . esc_url(get_option('opt-social-rss')) . '" target="_blank"><i class="fa fa-rss"></i></a>' : '';
 		}
+	$html.="</div>";
 	echo $html;
 }
 add_shortcode('social_media_list','social_media_list_func');
@@ -385,18 +386,13 @@ function options_image_setting_logo_preview(array $args) {
 }
 
 add_action('admin_footer', function() { 
-
 	/*
 	if possible try not to queue this all over the admin by adding your settings GET page val into next
 	if( empty( $_GET['page'] ) || "my-settings-page" !== $_GET['page'] ) { return; }
 	*/
-
 	?>
-
 	<script>
 		jQuery(document).ready(function($){
-
-
 			$("#image_upload_button.button").click(function(e) {
 				e.preventDefault();
 				var custom_uploader;
@@ -427,6 +423,125 @@ add_action('admin_footer', function() {
 			});      
 		});
 	</script>
-
 	<?php
-	});
+});
+
+function theme_header_layout() {
+	$container = get_theme_mod( 'understrap_container_type' );
+	$html = '';
+	$main_section_html = '';
+	$secondary_section_html = '';
+	$bg_img_html = '';
+	$slider_html = '';
+	$bg_img_wrap_class = '';
+	$slider_wrap_class = '';
+	$header_class = ''; // HEADER CLASS
+	$header_name = ( get_option('opt-header-type-select') ) ? get_option('opt-header-type-select') : 'template1';
+	$header_class= "header-style-".get_option('opt-header-type-select');
+	$logo_html = '<div class="logo">
+	<a href="' . home_url() . '"><img src="' . esc_url(get_option( 'opt-general-logo' )) . '" alt="logo"></a>
+	</div>';
+	$logo_html_2="";
+	if (get_option( 'opt-general-logo-2' )) {
+		$logo_html_2 = '<div class="logo">
+		<a href="' . home_url() . '"><img src="' . esc_url(get_option( 'opt-general-logo-2' )) . '" alt="logo-2"></a>
+		</div>';
+	}
+	$logo_html_on_page="";
+	if ($logo_html_2=="") {
+		$logo_html_on_page = $logo_html;
+	}
+	else if ($logo_html_2!="") {
+		if (( is_front_page() && is_home() )||( is_front_page() )) {
+			$logo_html_on_page = $logo_html;
+		}
+		else {
+			$logo_html_on_page .=$logo_html_2;
+		}
+	}
+	$theme_nav ="";
+	ob_start();
+	theme_header_nav();
+	$theme_nav = ob_get_clean();
+	
+	$theme_social_media = "";
+	ob_start();
+	social_media_list_func();
+	$theme_social_media = ob_get_clean();
+	$main_section_class = theme_header_main_section_class($header_name);
+	$main_section_html .= '<div class="header-main-section ' .$main_section_class.' clearfix">';
+	$main_section_html .= '<div class="container ' . esc_attr( $header_name ) . '-container">';
+	$main_section_html .= '<div class="inner-section-container">';
+	$main_section_left_part_html = "<div class='header-main-section-left-part'>";
+	$main_section_right_part_html = "<div class='header-main-section-right-part'>";
+	switch ($header_name):
+		case 'template4':
+			$main_section_left_part_html .= $logo_html_on_page;
+			$main_section_right_part_meta_html = "<div class='header-main-section-meta-part'>";
+			$main_section_right_part_meta_html .= $theme_social_media;
+			$main_section_right_part_meta_html .="</div>";
+			$main_section_right_part_html = $main_section_right_part_html.$main_section_right_part_meta_html.$theme_nav;
+		break;
+		default:
+			$main_section_left_part_html .= $logo_html_on_page;
+			$main_section_right_part_html .= $theme_nav;
+	endswitch;
+	$main_section_left_part_html .='</div>';
+	$main_section_right_part_html .='</div>';
+	$main_section_html = $main_section_html.$main_section_left_part_html.$main_section_right_part_html;
+	$main_section_html .= '</div></div></div>';
+	$html = "<div class='header'>".$secondary_section_html.$main_section_html."</div>";
+	echo $html;
+}
+function theme_header_main_section_class($header_name) {
+	$main_section_class = '';
+	switch ($header_name):
+		case 'template4':
+			$main_section_class = "main-section-type-2";
+		break;
+		case 'template5':
+			$main_section_class = "main-section-type-3";			
+		break;
+		case 'template6':
+			$main_section_class = "main-section-type-4";			
+		break;
+		default:
+			$main_section_class = "main-section-type-1";
+	endswitch;
+	return $main_section_class;
+}
+function theme_radio_value($option_id) {
+	$switch_value = get_option($option_id);
+	if ($switch_value == "off") return 0;
+	else return 1;
+}
+function theme_header_nav() {
+	?>
+	<!-- ******************* The Navbar Area ******************* -->
+	<div id="wrapper-navbar">
+
+		<nav class="navbar navbar-expand-md navbar-dark">
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'understrap' ); ?>">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- The WordPress Menu goes here -->
+				<?php wp_nav_menu(
+					array(
+						'theme_location'  => 'primary',
+						'container_class' => 'collapse navbar-collapse',
+						'container_id'    => 'navbarNavDropdown',
+						'menu_class'      => 'navbar-nav ml-auto',
+						'fallback_cb'     => '',
+						'menu_id'         => 'main-menu',
+						'depth'           => 2,
+						'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
+					)
+				); ?>
+
+		</nav><!-- .site-navigation -->
+
+	</div><!-- #wrapper-navbar end -->
+	<?php
+}

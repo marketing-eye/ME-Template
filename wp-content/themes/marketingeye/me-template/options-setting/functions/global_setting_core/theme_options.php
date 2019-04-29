@@ -30,7 +30,6 @@ class global_setting_config {
 						'type' => 'media',
 						'title' =>  __('Logo update 2', 'marketingeye'),
 						'desc' => 'Upload your second custom logo image',
-						'default' => get_template_directory_uri() . '/me-template/images/logo.jpg'
 					),
 					array(
 						'id' => 'opt-general-custom-css',
