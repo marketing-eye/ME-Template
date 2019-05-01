@@ -1,9 +1,9 @@
 <?php
 /**
- * Functions which for ME options setting
- *
- * @package ME
- */
+	* Functions which for ME options setting
+	*
+	* @package ME
+	*/
 
 /*import ME_script*/ 
 function site_options_script($hook) {
@@ -154,6 +154,7 @@ function contact_info_func() {
 }
 add_shortcode('contact_info','contact_info_func');
 
+//options setting page
 function add_new_menu_items()
 	{
 		add_menu_page(
@@ -186,13 +187,13 @@ function me_theme_options( $active_tab = '' ) {
 			<?php
 			foreach ($config->sections as $section) :?>
 					<a href="?page=me-theme-options&tab=<?php echo $section['id'];?>" class="nav-tab <?php if ($active_tab == $section['id']) {echo 'nav-tab-active';}?>"><?php echo $section['title']; ?></a>    
-			 <?php endforeach; ?>
-		  
+				<?php endforeach; ?>
+				
 		</h2>
 		<form class="setting-form" method="post" action="options.php">
 			<?php wp_nonce_field( 'update-options' ); ?>
 			<?php 
-			 $active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
+				$active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
 					foreach ($config->sections as $section) :
 						if ($active_tab==$section['id']) {
 							settings_fields('me-'.$section['id']);
@@ -207,7 +208,7 @@ function me_theme_options( $active_tab = '' ) {
 
 <?php
 global $config;
-			 $active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
+				$active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
 						foreach ($config->sections as $section) :
 							if ($active_tab==$section['id']):                       
 								foreach ($section['fields'] as $field) :
@@ -222,7 +223,7 @@ global $config;
 
 function me_admin_init() {
 	global $config;
-			 $active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
+				$active_tab = isset( $_GET[ 'tab' ])? $_GET[ 'tab' ] : 'general-settings';
 						foreach ($config->sections as $section) :
 							if ($active_tab==$section['id']):
 								add_settings_section( $section['id'],  $section['title'], NULL, 'me-'.$section['id'] );
@@ -269,8 +270,8 @@ function me_admin_init() {
 													$select_filed_select_options = "";
 												}
 
-												 $arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'select_options'=>$select_filed_select_options,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row option-select");
-												 break;
+													$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'select_options'=>$select_filed_select_options,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row option-select");
+													break;
 											default: 
 												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-row option-text");
 										}
@@ -314,7 +315,7 @@ $setting_field_id = $args['id'];
 				break;
 			?>
 			
- 
+	
 	<?php
 		case'editor':
 				$setting_filed_default_editor_quicktags = true;
@@ -432,7 +433,9 @@ add_action('admin_footer', function() {
 					upload_button.siblings(".options-input-field").val(attachment.url);
 					var id=upload_button.siblings(".options-input-field").attr("name");
 					console.log(id);
-					$("#"+id+"_upload_image_preview img").attr("src", attachment.url);
+					if ($("#"+id+"_upload_image_preview img").length) {
+						$("#"+id+"_upload_image_preview img").attr("src", attachment.url);
+					}
 				});
 				//Open the uploader dialog
 				custom_uploader.open();
@@ -459,7 +462,7 @@ function theme_header_layout() {
 	if (theme_radio_value('opt-header-main-menu-main')) {
 		ob_start();
 		theme_header_nav();
-		$theme_nav = ob_get_clean();		
+		$theme_nav = ob_get_clean();        
 	}
 	//main_section
 	$main_section_class = theme_header_main_section_class($header_name);
@@ -559,7 +562,7 @@ function theme_header_logo($header_position) {
 	return $logo_html_on_page;
 }
 //social media
-function theme_header_social_media($header_position) {		
+function theme_header_social_media($header_position) {      
 	$theme_social_media = "";
 	if (theme_radio_value('opt-header-socials-'.$header_position)) {
 		ob_start();
@@ -569,7 +572,7 @@ function theme_header_social_media($header_position) {
 	return $theme_social_media;
 }
 //contact info
-function theme_header_contact_info($header_position) {		
+function theme_header_contact_info($header_position) {      
 	$theme_contact_info = "";
 	if (theme_radio_value('opt-header-contact-info-'.$header_position)) {
 		ob_start();
@@ -646,4 +649,14 @@ function theme_header_nav() {
 
 	</div><!-- #wrapper-navbar end -->
 	<?php
+}
+
+//internal setting meta box
+/**
+ * Calls the class on the post edit screen.
+ */
+
+if ( is_admin() ) {
+    add_action( 'load-post.php',     'call_CustomMetaBoxClass' );
+    add_action( 'load-post-new.php', 'call_CustomMetaBoxClass' );
 }

@@ -263,25 +263,25 @@ class global_setting_config {
 				$fields[] = array(
 					'id' => 'opt-call-to-action-1-text',
 					'type' => 'text',
-					'title' => 'Header call to action 1 text',					
+					'title' => 'Header call to action 1 text',                  
 				); 
 
 				$fields[] = array(
 					'id' => 'opt-call-to-action-1-link',
 					'type' => 'text',
-					'title' => 'Header call to action 1 link',					
+					'title' => 'Header call to action 1 link',                  
 				); 
 
 				$fields[] = array(
 					'id' => 'opt-call-to-action-2-text',
 					'type' => 'text',
-					'title' => 'Header call to action 2 text',					
+					'title' => 'Header call to action 2 text',                  
 				); 
 
 				$fields[] = array(
 					'id' => 'opt-call-to-action-2-link',
 					'type' => 'text',
-					'title' => 'Header call to action 2 link',					
+					'title' => 'Header call to action 2 link',                  
 				); 
 
 				
@@ -518,4 +518,190 @@ class global_setting_config {
 }
 
 $config = new global_setting_config();
-//var_dump($config);
+
+/**
+ * Calls the class on the post edit screen.
+ */
+function call_CustomMetaBoxClass() {
+	new CustomMetaBoxClass();
+}
+ 
+/**
+ * The Class.
+ */
+class CustomMetaBoxClass {
+ 
+	/**
+	 * Hook into the appropriate actions when the class is constructed.
+	 */
+	public function __construct() {
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
+		add_action( 'save_post',      array( $this, 'save'         ) );
+	}
+ 
+	/**
+	 * Adds the meta box container.
+	 */
+	public function add_meta_box() {
+		// Limit meta box to certain post types. 
+		add_meta_box(
+				'custom_meta_box',
+				__( 'Custom Meta Fields', 'marketingeye' ),
+				array( $this, 'render_meta_box_content' ),
+				null,
+				'advanced',
+				'high'
+			);
+	}
+ 
+	/**
+	 * Save the meta when the post is saved.
+	 *
+	 * @param int $post_id The ID of the post being saved.
+	 */
+	public function save( $post_id ) {
+ 
+		/*
+		 * We need to verify this came from the our screen and with proper authorization,
+		 * because save_post can be triggered at other times.
+		 */
+ 
+		// Check if our nonce is set.
+		if ( ! isset( $_POST['myplugin_inner_custom_box_nonce'] ) ) {
+			return $post_id;
+		}
+ 
+		$nonce = $_POST['myplugin_inner_custom_box_nonce'];
+ 
+		// Verify that the nonce is valid.
+		if ( ! wp_verify_nonce( $nonce, 'myplugin_inner_custom_box' ) ) {
+			return $post_id;
+		}
+ 
+		/*
+		 * If this is an autosave, our form has not been submitted,
+		 * so we don't want to do anything.
+		 */
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return $post_id;
+		}
+ 
+		// Check the user's permissions.
+		if ( 'page' == $_POST['post_type'] ) {
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
+				return $post_id;
+			}
+		} else {
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return $post_id;
+			}
+		}
+ 
+		/* OK, it's safe for us to save the data now. */
+ 
+		// Update the meta field.
+		if (array_key_exists('custom_meta_use_custom_title', $_POST)) {
+			update_post_meta($post_id,'custom_meta_use_custom_title_key',$_POST['custom_meta_use_custom_title']);
+		}
+		if (array_key_exists('custom_meta_custom_header_title', $_POST)) {
+			update_post_meta($post_id,'custom_meta_custom_header_title_key',$_POST['custom_meta_custom_header_title']);
+		}
+		if (array_key_exists('custom_meta_custom_header_sub_title', $_POST)) {
+			update_post_meta($post_id,'custom_meta_custom_header_sub_title_key',$_POST['custom_meta_custom_header_sub_title']);
+		}
+		if (array_key_exists('custom_meta_header_background_type', $_POST)) {
+			update_post_meta($post_id,'custom_meta_header_background_type_key',$_POST['custom_meta_header_background_type']);
+		}
+		if (array_key_exists('custom_meta_banner_image', $_POST)) {
+			update_post_meta($post_id,'custom_meta_banner_image_key',$_POST['custom_meta_banner_image']);
+		}
+		if (array_key_exists('custom_meta_show_breadcrumb', $_POST)) {
+			update_post_meta($post_id,'custom_meta_show_breadcrumb_key',$_POST['custom_meta_show_breadcrumb']);
+		}
+		if (array_key_exists('custom_meta_use_top_banner', $_POST)) {
+			update_post_meta($post_id,'custom_meta_use_top_banner_key',$_POST['custom_meta_use_top_banner']);
+		}
+	}
+ 
+ 
+	/**
+	 * Render Meta Box content.
+	 *
+	 * @param WP_Post $post The post object.
+	 */
+	public function render_meta_box_content( $post ) {
+
+		// Add an nonce field so we can check for it later.
+		wp_nonce_field( 'myplugin_inner_custom_box', 'myplugin_inner_custom_box_nonce' );
+ 
+ $check="";
+
+		// Use get_post_meta to retrieve an existing value from the database.
+		$value_custom_meta_use_custom_title = get_post_meta( $post->ID, 'custom_meta_use_custom_title_key', true );
+		$value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
+		$value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
+		$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
+		$value_custom_meta_banner_image = get_post_meta( $post->ID, 'custom_meta_banner_image_key', true );
+		$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
+		$value_custom_meta_use_top_banner = get_post_meta( $post->ID, 'custom_meta_use_top_banner_key', true );
+
+		// Display the form, using the current value.
+		?>	
+	   <table class='form-table custom_meta_box'>
+		<tbody>
+			<tr>
+				<th><label for="custom_meta_use_custom_title">Use Custom Title</label></th>
+				<td>
+					<select name="custom_meta_use_custom_title" id="custom_meta_use_custom_title" class="postbox">
+						<option value="no" <?php selected($value_custom_meta_use_custom_title, 'no'); ?>>No</option>
+						<option value="yes" <?php selected($value_custom_meta_use_custom_title, 'yes'); ?>>Yes</option>
+					</select>
+			</tr>
+			<tr>
+				<th><label for="custom_meta_custom_header_title">Custom Header Title</label></th>
+				<td><input type="text" name="custom_meta_custom_header_title" id="custom_meta_custom_header_title" value="<?php echo $value_custom_meta_custom_header_title; ?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="custom_meta_custom_header_sub_title">Custom Header Title</label></th>
+				<td><input type="text" name="custom_meta_custom_header_sub_title" id="custom_meta_custom_header_sub_title" value="<?php echo $value_custom_meta_custom_header_sub_title; ?>" /></td>
+			</tr>
+			<tr>
+				<th><label for="custom_meta_header_background_type"> Header Background Tyle</label></th>
+				<td>
+					<select name="custom_meta_header_background_type" id="custom_meta_header_background_type" class="postbox">
+						<option value="default-global" <?php selected($value_custom_meta_header_background_type, 'default-global'); ?>>Using the default global setting</option>
+						<option value="image" <?php selected($value_custom_meta_header_background_type, 'image'); ?>>Image</option>
+						<option value="slider" <?php selected($value_custom_meta_header_background_type, 'slider'); ?>>Slider</option>
+					</select>
+			</tr>
+			<tr>
+				<th>Background Image</th>
+				<td>
+					<input class="options-input-field" type="text" name="custom_meta_banner_image" id="custom_meta_banner_image" value="<?php echo $value_custom_meta_banner_image; ?>" />
+					<br>
+					<input id="image_upload_button" type="button" class="button" value="Upload Image" />
+					<div id="custom_meta_banner_image_upload_image_preview" class="upload-image-review" style="min-height: 100px;">
+						<img style="max-width:100%;" src="<?php echo $value_custom_meta_banner_image; ?>" />
+					</div>
+				</td>
+			<tr>
+				<th><label for="custom_meta_show_breadcrumb">Show Breadcrumb</label></th>
+				<td>
+					<select name="custom_meta_show_breadcrumb" id="custom_meta_show_breadcrumb" class="postbox">
+						<option value="no" <?php selected($value_custom_meta_show_breadcrumb, 'no'); ?>>No</option>
+						<option value="yes" <?php selected($value_custom_meta_show_breadcrumb, 'yes'); ?>>Yes</option>
+					</select>
+			</tr>
+			<tr>
+				<th><label for="custom_meta_use_top_banner">Use Top Banner</label></th>
+				<td>
+					<select name="custom_meta_use_top_banner" id="custom_meta_use_top_banner" class="postbox">
+						<option value="no" <?php selected($value_custom_meta_use_top_banner, 'no'); ?>>No</option>
+						<option value="yes" <?php selected($value_custom_meta_use_top_banner, 'yes'); ?>>Yes</option>
+					</select>
+			</tr>
+		</tbody>
+	</table>
+	<?php    
+	}
+}
