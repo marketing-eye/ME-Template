@@ -592,7 +592,7 @@ function theme_header_cta($header_position) {
 	}
 		if (theme_radio_value('opt-header-call-to-action-2-'.$header_position)) {
 		if (get_option("opt-call-to-action-2-link")) {
-			$theme_cta2.='<a id="call-to-action-button-2" class="call-to-action-button-link" href="'.esc_url(get_option("opt-call-to-action-2-link")).'" target="_blank">'.get_option("opt-call-to-action-2-text").'</a>';
+			$theme_cta2.='<a id="call-to-action-button-2" class="call-to-action-button call-to-action-button-link" href="'.esc_url(get_option("opt-call-to-action-2-link")).'" target="_blank">'.get_option("opt-call-to-action-2-text").'</a>';
 		}
 		else {
 			$theme_cta2.= '<span class="call-to-action-button call-to-action-button-text">'.get_option("opt-call-to-action-2-text").'</span>';
