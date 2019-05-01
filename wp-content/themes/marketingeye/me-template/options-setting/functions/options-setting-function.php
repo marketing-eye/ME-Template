@@ -138,6 +138,22 @@ function social_media_list_func() {
 }
 add_shortcode('social_media_list','social_media_list_func');
 
+function contact_info_func() {
+	$html = "<div class='contact-info-wrapper'>";
+	if (get_option('opt-contact-phone-number')) {
+		$html.= trim(get_option('opt-contact-phone-number')) != '' ? '<a class="contact-detail phone-number fa fa-phone" href="tel:' . get_option('opt-contact-phone-number') . '">'.get_option('opt-contact-phone-number').'</a>' : '';
+	}
+	if (get_option('opt-contact-email')) {
+		$html.= trim(get_option('opt-contact-email')) != '' ? '<a class="contact-detail email-address fa fa-envelope" href="mailto:' . get_option('opt-contact-email') . '">'.get_option('opt-contact-email').'</a>' : '';
+	}
+	if (get_option('opt-contact-address')) {
+		$html.= trim(get_option('opt-contact-address')) != '' ? '<span class="contact-detail location fa fa-map-marker">'.get_option('opt-contact-address').'</span>' : '';
+	}
+	$html .="</div>";
+	echo $html;
+}
+add_shortcode('contact_info','contact_info_func');
+
 function add_new_menu_items()
 	{
 		add_menu_page(
@@ -438,6 +454,83 @@ function theme_header_layout() {
 	$header_class = ''; // HEADER CLASS
 	$header_name = ( get_option('opt-header-type-select') ) ? get_option('opt-header-type-select') : 'template1';
 	$header_class= "header-style-".get_option('opt-header-type-select');
+	//header_nav
+	$theme_nav ="";
+	if (theme_radio_value('opt-header-main-menu-main')) {
+		ob_start();
+		theme_header_nav();
+		$theme_nav = ob_get_clean();		
+	}
+	//main_section
+	$main_section_class = theme_header_main_section_class($header_name);
+	$main_section_html .= '<div class="header-main-section ' .$main_section_class.' clearfix">';
+	$main_section_html .= '<div class="container ' . esc_attr( $header_name ) . '-container">';
+	$main_section_html .= '<div class="inner-section-container">';
+	$main_section_left_part_html = "<div class='header-main-section-left-part'>";
+	$main_section_right_part_html = "<div class='header-main-section-right-part'>";
+	switch ($header_name):
+		case 'template4':
+			$main_section_meta_html = "<div class='header-main-section-meta-part'>";
+			$main_section_meta_html .= theme_header_cta("main").theme_header_contact_info("main").theme_header_social_media("main");
+			$main_section_meta_html .="</div>";
+			$main_section_left_part_html .= theme_header_logo("main");
+			$main_section_right_part_html = $main_section_right_part_html.$main_section_meta_html.$theme_nav;
+		break;
+		case 'template5':
+			$main_section_left_part_html .= $theme_nav;
+			$main_section_right_part_html .= theme_header_social_media("main");
+		break;
+		case 'template6':
+			$main_section_left_part_html .= $theme_nav;
+		break;
+		default: //template1,template2,template3
+			$main_section_left_part_html .= theme_header_logo("main");
+			$main_section_right_part_html .= $theme_nav;
+	endswitch;
+	$main_section_left_part_html .='</div>';
+	$main_section_right_part_html .='</div>';
+	$main_section_html = $main_section_html.$main_section_left_part_html.$main_section_right_part_html;
+	$main_section_html .= '</div></div></div>';
+	//secondary_section
+	$secondary_section_class = theme_header_secondary_section_class($header_name);
+	$secondary_section_html .= '<div class="header-secondary-section ' .$secondary_section_class.' clearfix">';
+	$secondary_section_html .= '<div class="container ' . esc_attr( $header_name ) . '-container">';
+	$secondary_section_html .= '<div class="inner-section-container">';
+	$secondary_section_left_part_html = "<div class='header-secondary-section-left-part'>";
+	$secondary_section_right_part_html = "<div class='header-secondary-section-right-part'>";
+	switch ($header_name):
+		case 'template2' :
+			$secondary_section_left_part_html .= theme_header_social_media("secondary");
+			$secondary_section_right_part_html .= theme_header_cta("secondary").theme_header_contact_info("secondary");
+		break;
+		case 'template3' :
+			$secondary_section_right_part_html .= theme_header_cta("secondary").theme_header_contact_info("secondary").theme_header_social_media("secondary");;
+		break;
+		case 'template4':
+			
+		break;
+		case 'template5':
+			$secondary_section_left_part_html .= theme_header_logo("secondary");
+			$secondary_section_right_part_html .= theme_header_cta("secondary").theme_header_contact_info("secondary");
+		break;
+		case 'template6':
+			$secondary_section_left_part_html .= theme_header_logo("secondary");
+			$secondary_section_right_part_html .= theme_header_cta("secondary").theme_header_contact_info("secondary").theme_header_social_media("secondary");;
+		break;
+		default: //template1
+			$secondary_section_left_part_html .= theme_header_contact_info("secondary");
+			$secondary_section_right_part_html .= theme_header_cta("secondary").theme_header_social_media("secondary");
+	endswitch;
+	$secondary_section_left_part_html .='</div>';
+	$secondary_section_right_part_html .='</div>';
+	$secondary_section_html = $secondary_section_html.$secondary_section_left_part_html.$secondary_section_right_part_html;
+	$secondary_section_html .= '</div></div></div>';
+	$html = "<div class='header header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
+	echo $html;
+}
+//header_logo
+function theme_header_logo($header_position) {
+	$logo_html_on_page="";
 	$logo_html = '<div class="logo">
 	<a href="' . home_url() . '"><img src="' . esc_url(get_option( 'opt-general-logo' )) . '" alt="logo"></a>
 	</div>';
@@ -447,70 +540,79 @@ function theme_header_layout() {
 		<a href="' . home_url() . '"><img src="' . esc_url(get_option( 'opt-general-logo-2' )) . '" alt="logo-2"></a>
 		</div>';
 	}
-	$logo_html_on_page="";
-	if ($logo_html_2=="") {
-		$logo_html_on_page = $logo_html;
-	}
-	else if ($logo_html_2!="") {
-		if (( is_front_page() && is_home() )||( is_front_page() )) {
-			$logo_html_on_page = $logo_html;
+	if (theme_radio_value('opt-header-logo-'.$header_position)) {
+		if (theme_radio_value('opt-header-logo-2-'.$header_position)&&($logo_html_2!="")) {
+			if (( is_front_page() && is_home() )||( is_front_page() )) {
+				$logo_html_on_page = $logo_html;
+			}
+			else {
+				$logo_html_on_page = $logo_html_2;
+			}
 		}
 		else {
-			$logo_html_on_page .=$logo_html_2;
+			$logo_html_on_page = $logo_html;
 		}
 	}
-	$theme_nav ="";
-	ob_start();
-	theme_header_nav();
-	$theme_nav = ob_get_clean();
-	
+	else if (theme_radio_value('opt-header-logo-2-'.$header_position)&&($logo_html_2!="")) {
+		$logo_html_on_page = $logo_html_2;
+	}
+	return $logo_html_on_page;
+}
+//social media
+function theme_header_social_media($header_position) {		
 	$theme_social_media = "";
-	ob_start();
-	social_media_list_func();
-	$theme_social_media = ob_get_clean();
-	$main_section_class = theme_header_main_section_class($header_name);
-	$main_section_html .= '<div class="header-main-section ' .$main_section_class.' clearfix">';
-	$main_section_html .= '<div class="container ' . esc_attr( $header_name ) . '-container">';
-	$main_section_html .= '<div class="inner-section-container">';
-	$main_section_left_part_html = "<div class='header-main-section-left-part'>";
-	$main_section_right_part_html = "<div class='header-main-section-right-part'>";
-	switch ($header_name):
-		case 'template4':
-			$main_section_left_part_html .= $logo_html_on_page;
-			$main_section_right_part_meta_html = "<div class='header-main-section-meta-part'>";
-			$main_section_right_part_meta_html .= $theme_social_media;
-			$main_section_right_part_meta_html .="</div>";
-			$main_section_right_part_html = $main_section_right_part_html.$main_section_right_part_meta_html.$theme_nav;
-		break;
-		default:
-			$main_section_left_part_html .= $logo_html_on_page;
-			$main_section_right_part_html .= $theme_nav;
-	endswitch;
-	$main_section_left_part_html .='</div>';
-	$main_section_right_part_html .='</div>';
-	$main_section_html = $main_section_html.$main_section_left_part_html.$main_section_right_part_html;
-	$main_section_html .= '</div></div></div>';
-	$html = "<div class='header'>".$secondary_section_html.$main_section_html."</div>";
-	echo $html;
+	if (theme_radio_value('opt-header-socials-'.$header_position)) {
+		ob_start();
+		social_media_list_func();
+		$theme_social_media = ob_get_clean();
+	}
+	return $theme_social_media;
+}
+//contact info
+function theme_header_contact_info($header_position) {		
+	$theme_contact_info = "";
+	if (theme_radio_value('opt-header-contact-info-'.$header_position)) {
+		ob_start();
+		contact_info_func();
+		$theme_contact_info = ob_get_clean();
+	}
+	return $theme_contact_info;
+}
+function theme_header_cta($header_position) {
+	$theme_cta_all = "";
+	$theme_cta1="";
+	$theme_cta2="";
+	if (theme_radio_value('opt-header-call-to-action-'.$header_position)) {
+		if (get_option("opt-call-to-action-1-link")) {
+			$theme_cta1.='<a id="call-to-action-button-1" class="call-to-action-button call-to-action-button-link" href="'.esc_url(get_option("opt-call-to-action-1-link")).'" target="_blank">'.get_option("opt-call-to-action-1-text").'</a>';
+		}
+		else {
+			$theme_cta1.= '<span class="call-to-action-button call-to-action-button-text">'.get_option("opt-call-to-action-1-text").'</span>';
+		}
+	}
+		if (theme_radio_value('opt-header-call-to-action-2-'.$header_position)) {
+		if (get_option("opt-call-to-action-2-link")) {
+			$theme_cta2.='<a id="call-to-action-button-2" class="call-to-action-button-link" href="'.esc_url(get_option("opt-call-to-action-2-link")).'" target="_blank">'.get_option("opt-call-to-action-2-text").'</a>';
+		}
+		else {
+			$theme_cta2.= '<span class="call-to-action-button call-to-action-button-text">'.get_option("opt-call-to-action-2-text").'</span>';
+		}
+	}
+	$theme_cta_all .= "<div class='cta-wrapper'>";
+	$theme_cta_all=$theme_cta_all.$theme_cta1.$theme_cta2;
+	$theme_cta_all .= "</div>";
+	return $theme_cta_all;
 }
 function theme_header_main_section_class($header_name) {
 	$main_section_class = '';
-	switch ($header_name):
-		case 'template4':
-			$main_section_class = "main-section-type-2";
-		break;
-		case 'template5':
-			$main_section_class = "main-section-type-3";			
-		break;
-		case 'template6':
-			$main_section_class = "main-section-type-4";			
-		break;
-		default:
-			$main_section_class = "main-section-type-1";
-	endswitch;
+	$main_section_class .="main-section-type-".$header_name;
 	return $main_section_class;
 }
-function theme_radio_value($option_id) {
+function theme_header_secondary_section_class($header_name) {
+	$secondary_section_class = '';
+	$secondary_section_class = "secondary-section-type-".$header_name;
+	return $secondary_section_class;
+}function theme_radio_value($option_id) {
 	$switch_value = get_option($option_id);
 	if ($switch_value == "off") return 0;
 	else return 1;

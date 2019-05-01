@@ -46,8 +46,6 @@ $html .= "<div>opt-footer-widget-1-columns-width: ".get_option('opt-footer-widge
 $html .= "<div>opt-footer-widget-2-columns-width ".get_option('opt-footer-widget-2-columns-width')."</div>";
 $html .= "<div>opt-footer-widget-3-columns-width ".get_option('opt-footer-widget-3-columns-width')."</div>";
 $html .= "<div>opt-footer-widget-4-columns-width ".get_option('opt-footer-widget-4-columns-width')."</div>";
-$html .= "<style type='text/css'>".get_option('opt-general-custom-css')."</style>";
-$html .= "<script type='text/javascript'>".get_option('opt-general-custom-js')."</script>";
 $html .= "<div>opt-header-style: ".get_option('opt-header-type-select')."</div>";
 $header = get_option('opt-header-type-select');
 if (in_array($header,get_option('opt-header-logo-main-header-display'))) {

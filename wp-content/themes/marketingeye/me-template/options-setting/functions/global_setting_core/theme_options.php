@@ -55,11 +55,6 @@ class global_setting_config {
 			); 
 		//Header Options
 		function list_header_section_fields() {
-				/*
-				global $headers_has_secondary, $headers_has_title_default, $headers_has_subtitle_default, $headers_has_icon_default, $headers_has_breadcrumb_default, $headers_allow_logo, 
-				$headers_allow_main_menu, $headers_allow_top_menu, $headers_allow_search_icon, $headers_allow_header_top_bar_text, $headers_allow_call_to_action, $headers_allow_contact_info, $headers_allow_socials, 
-				$headers_allow_sliding_menu, $headers_allow_mini_cart, $headers_allow_call_to_action2;
-				*/
 								
 				$header_names = array(
 					'template1'   => __( 'template1', 'marketingeye' ),
@@ -113,8 +108,8 @@ class global_setting_config {
 						'right' => __( 'Right', 'marketingeye' )
 					),
 					'section' => array( // Section will show (main or secondary)    
-						'main'      => array( 'template5', 'template6'),
-						'secondary' => array( 'template1','template2','template3','template4',)
+						'main'      => array('template4'),
+						'secondary' => array( 'template1','template2','template3','template5', 'template6')
 					),                     
 				);
 
@@ -125,8 +120,8 @@ class global_setting_config {
 						'right' => __( 'Right', 'marketingeye' )
 					),
 					'section' => array( // Section will show (main or secondary)    
-						'main'      => array( 'template5', 'template6'),
-						'secondary' => array( 'template1','template2','template3','template4')
+						'main'      => array('template4'),
+						'secondary' => array( 'template1','template2','template3','template5', 'template6')
 					),                     
 				);
 			 
