@@ -370,7 +370,8 @@ $setting_field_id = $args['id'];
 			break;
 		case 'radio':
 			$header_element_display = array();
-			if (array_key_exists('required',$args)) {
+			$display_all_time = array('opt-header-title-enable','opt-header-breadcrumb-enable');
+			if ((array_key_exists('required',$args))&&(!in_array($args['id'],$display_all_time))) {
 				echo "<div class='header-display-fields'>";
 				foreach($args['required'] as $key => $required_header) {
 					echo "<div class='header-display-field'>".$required_header."</div>";
@@ -446,10 +447,15 @@ add_action('admin_footer', function() {
 });
 
 function theme_header_layout() {
+	global $post;
 	$container = get_theme_mod( 'understrap_container_type' );
-	$html = '';
+	$html='';
+	$header_html = '';
+	$header_top_html = '';
 	$main_section_html = '';
 	$secondary_section_html = '';
+	$header_banner_html = '';
+	$header_banner_internal_html = '';
 	$bg_img_html = '';
 	$slider_html = '';
 	$bg_img_wrap_class = '';
@@ -528,9 +534,183 @@ function theme_header_layout() {
 	$secondary_section_right_part_html .='</div>';
 	$secondary_section_html = $secondary_section_html.$secondary_section_left_part_html.$secondary_section_right_part_html;
 	$secondary_section_html .= '</div></div></div>';
-	$html = "<div class='header header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
-	echo $html;
+	$header_top_html = "<div class='header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
+	$header_banner_html = "<div class='header-banner'>";
+	$value_custom_meta_header_background_type = "";
+	$value_custom_meta_header_background_slider = "";
+	$value_custom_meta_show_breadcrumb = "";
+	$value_custom_meta_banner_image = "";
+	if (count($post)) {
+		$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
+		$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
+		$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
+		$value_custom_meta_banner_image = get_post_meta( $post->ID, 'custom_meta_banner_image_key', true );
+	}
+	$a=3;
+	if ($value_custom_meta_header_background_type=='slider'):
+	    if ($value_custom_meta_header_background_slider):
+			ob_start();
+			putRevSlider($value_custom_meta_header_background_slider);
+			$slider_html = ob_get_clean();
+		endif;
+	else:
+	    //breadcrumb
+		$header_banner_internal_html.="<div class='container'><div class='row inner-section-container'>";
+		$header_breadcrumb ="";
+		$header_banner_left_html = "";
+		$header_banner_right_html = "";
+		if (theme_radio_value('opt-header-breadcrumb-enable')) {
+			if (($value_custom_meta_show_breadcrumb =="yes")||(!($value_custom_meta_show_breadcrumb))) {
+				ob_start();
+				the_breadcrumb();
+				$header_breadcrumb = ob_get_clean();
+			}
+		}
+		else {
+			if (($value_custom_meta_show_breadcrumb =="yes")) {
+				ob_start();
+				the_breadcrumb();
+				$header_breadcrumb = ob_get_clean();
+			}
+		}
+		//title
+		ob_start();
+		wp_title("");
+		$title = ob_get_clean();
+		$title=trim($title);
+		$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+		//position
+		if ($header_breadcrumb) {
+			$header_banner_left_html= $header_banner_left_html."<div class='col-12 col-md-8 header-banner-left'>".$header_page_title."</div>";
+			$header_banner_right_html= $header_banner_right_html."<div class='col-12 col-md-4 header-banner-right'>".$header_breadcrumb."</div>";
+		}
+		else {
+			$header_banner_left_html= $header_banner_left_html."<div class='col-12 col-md-12 header-banner-left'>".$header_page_title."</div>";
+		}
+		$header_banner_internal_html .= $header_banner_left_html.$header_banner_right_html;
+		$header_banner_internal_html .="</div></div>";
+		//bg_image
+		if (($value_custom_meta_banner_image)&&($value_custom_meta_header_background_type=='image')) {
+			echo '<style>.header-banner {background-image: url("'.$value_custom_meta_banner_image.'");}</style>';
+		}
+	endif;
+	
+	$header_banner_html .= $slider_html.$header_banner_internal_html;
+	$header_banner_html .="</div>";
+	//mix all together
+	$header_html .="<div class='header'>";	
+	$header_html .= $header_top_html.$header_banner_html;
+	$header_html .="</div>";
+	echo $header_html;
 }
+//breadcrumb
+function the_breadcrumb() {
+    $showOnHome = 0; // 1 - show breadbreadcrumbs on the homepage, 0 - don't show
+    $delimiter = '<span class="sep">/</span>'; // delimiter between breadcrumbs
+    $home = 'Home'; // text for the 'Home' link
+    $showCurrent = 1; // 1 - show current post/page title in breadbreadcrumbs, 0 - don't show
+    $before = '<span class="current">'; // tag before the current crumb
+    $after = '</span>'; // tag after the current crumb
+    global $post;
+    $homeLink = get_bloginfo('url');
+    if (is_home() || is_front_page()) {
+        if ($showOnHome == 1) {
+            echo '<div id="breadcrumbs"><a href="' . $homeLink . '">' . $home . '</a></div>';
+        }
+    } else {
+        echo '<div id="breadcrumbs"><a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' ';
+        if (is_category()) {
+            $thisCat = get_category(get_query_var('cat'), false);
+            if ($thisCat->parent != 0) {
+                echo get_category_parents($thisCat->parent, true, ' ' . $delimiter . ' ');
+            }
+            echo $before . single_cat_title('', false) . '"' . $after;
+        } elseif (is_search()) {
+            echo $before . get_search_query() . '"' . $after;
+        } elseif (is_day()) {
+            echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+            echo '<a href="' . get_month_link(get_the_time('Y'), get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
+            echo $before . get_the_time('d') . $after;
+        } elseif (is_month()) {
+            echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+            echo $before . get_the_time('F') . $after;
+        } elseif (is_year()) {
+            echo $before . get_the_time('Y') . $after;
+        } elseif (is_single() && !is_attachment()) {
+            if (get_post_type() != 'post') {
+                $post_type = get_post_type_object(get_post_type());
+                $slug = $post_type->rewrite;
+                echo '<a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a>';
+                if ($showCurrent == 1) {
+                    echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+                }
+            } else {
+                $cat = get_the_category();
+                $cat = $cat[0];
+                $cats = get_category_parents($cat, true, ' ' . $delimiter . ' ');
+                if ($showCurrent == 0) {
+                    $cats = preg_replace("#^(.+)\s$delimiter\s$#", "$1", $cats);
+                }
+                //echo $cats;
+                if ($showCurrent == 1) {
+                    echo $before . get_the_title() . $after;
+                }
+            }
+        } elseif (!is_single() && !is_page() && get_post_type() != 'post' && !is_404()) {
+            $post_type = get_post_type_object(get_post_type());
+            echo $before . $post_type->labels->singular_name . $after;
+        } elseif (is_attachment()) {
+            $parent = get_post($post->post_parent);
+            $cat = get_the_category($parent->ID);
+            $cat = $cat[0];
+            echo get_category_parents($cat, true, ' ' . $delimiter . ' ');
+            echo '<a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a>';
+            if ($showCurrent == 1) {
+                echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+            }
+        } elseif (is_page() && !$post->post_parent) {
+            if ($showCurrent == 1) {
+                echo $before . get_the_title() . $after;
+            }
+        } elseif (is_page() && $post->post_parent) {
+            $parent_id  = $post->post_parent;
+            $breadbreadcrumbs = array();
+            while ($parent_id) {
+                $page = get_page($parent_id);
+                $breadbreadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+                $parent_id  = $page->post_parent;
+            }
+            $breadbreadcrumbs = array_reverse($breadbreadcrumbs);
+            for ($i = 0; $i < count($breadbreadcrumbs); $i++) {
+                echo $breadbreadcrumbs[$i];
+                if ($i != count($breadbreadcrumbs)-1) {
+                    echo ' ' . $delimiter . ' ';
+                }
+            }
+            if ($showCurrent == 1) {
+                echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+            }
+        } elseif (is_tag()) {
+            echo $before . 'Posts tagged "' . single_tag_title('', false) . '"' . $after;
+        } elseif (is_author()) {
+            global $author;
+            $userdata = get_userdata($author);
+            echo $before . 'Articles posted by ' . $userdata->display_name . $after;
+        } elseif (is_404()) {
+            echo $before . 'Error 404' . $after;
+        }
+        if (get_query_var('paged')) {
+            if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) {
+                echo ' (';
+            }
+            echo __('Page') . ' ' . get_query_var('paged');
+            if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) {
+                echo ')';
+            }
+        }
+        echo '</div>';
+    }
+} // end the_breadcrumb()
 //header_logo
 function theme_header_logo($header_position) {
 	$logo_html_on_page="";
@@ -615,7 +795,8 @@ function theme_header_secondary_section_class($header_name) {
 	$secondary_section_class = '';
 	$secondary_section_class = "secondary-section-type-".$header_name;
 	return $secondary_section_class;
-}function theme_radio_value($option_id) {
+}
+function theme_radio_value($option_id) {
 	$switch_value = get_option($option_id);
 	if ($switch_value == "off") return 0;
 	else return 1;

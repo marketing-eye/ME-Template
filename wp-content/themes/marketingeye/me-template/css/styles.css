@@ -108,6 +108,33 @@ a:hover {
 .cta-wrapper .call-to-action-button:not(:last-child) {
 	margin-right: 10px;
 }
+/*breadcrumb*/
+.header #breadcrumbs a {
+    text-decoration: none;
+}
+.header #breadcrumbs .sep {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+/*banner*/
+.header-banner {
+	color: #fff;
+}
+.header-banner {
+	background-color: orange;
+}
+.header-banner .inner-section-container {
+	align-items: center;
+	min-height: 400px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.header-banner {
+	background-image: url("../images/header-bg-image-default.jpg");
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
 @media (min-width: 576px) {
 	.header .logo {
 		min-width: 220px;

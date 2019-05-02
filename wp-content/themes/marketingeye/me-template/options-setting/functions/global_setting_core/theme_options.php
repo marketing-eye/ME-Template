@@ -233,7 +233,7 @@ class global_setting_config {
 				); 
 
 				$fields[] = array(
-					'id'        =>  'opt-header-breadcrumb -enable',
+					'id'        =>  'opt-header-breadcrumb-enable',
 					'type'      =>  'radio',
 					'title'     =>  __('Enable Breadcrumb', 'marketingeye'),
 					'default' => 'on',
@@ -615,6 +615,9 @@ class CustomMetaBoxClass {
 		if (array_key_exists('custom_meta_banner_image', $_POST)) {
 			update_post_meta($post_id,'custom_meta_banner_image_key',$_POST['custom_meta_banner_image']);
 		}
+		if (array_key_exists('custom_meta_header_background_slider', $_POST)) {
+			update_post_meta($post_id,'custom_meta_header_background_slider_key',$_POST['custom_meta_header_background_slider']);
+		}
 		if (array_key_exists('custom_meta_show_breadcrumb', $_POST)) {
 			update_post_meta($post_id,'custom_meta_show_breadcrumb_key',$_POST['custom_meta_show_breadcrumb']);
 		}
@@ -642,8 +645,16 @@ class CustomMetaBoxClass {
 		$value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
 		$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
 		$value_custom_meta_banner_image = get_post_meta( $post->ID, 'custom_meta_banner_image_key', true );
+		$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
 		$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
 		$value_custom_meta_use_top_banner = get_post_meta( $post->ID, 'custom_meta_use_top_banner_key', true );
+
+		if ( class_exists( 'RevSlider' ) ) {
+		    $rev_slider = new RevSlider();
+		    $sliders = $rev_slider->getAllSliderAliases();
+		} else {
+		    $sliders = array();
+		}
 
 		// Display the form, using the current value.
 		?>	
@@ -684,6 +695,19 @@ class CustomMetaBoxClass {
 						<img style="max-width:100%;" src="<?php echo $value_custom_meta_banner_image; ?>" />
 					</div>
 				</td>
+			<tr>
+				<th><label for="custom_meta_header_background_type"> Header Background Slider</label></th>
+				<td>
+					<?php
+					echo '<select name="custom_meta_header_background_slider">';
+					foreach ($sliders as $slider) {
+						?>
+						<option value="<?php echo $slider; ?>" <?php selected($value_custom_meta_header_background_slider, $slider); ?>><?php echo $slider; ?></option>
+					<?php
+					}
+					echo '</select>';
+					?>
+			</tr>
 			<tr>
 				<th><label for="custom_meta_show_breadcrumb">Show Breadcrumb</label></th>
 				<td>

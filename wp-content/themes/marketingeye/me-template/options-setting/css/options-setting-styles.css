@@ -128,3 +128,7 @@ border-bottom: none;
 .custom_meta_box .upload-image-review {
     margin-top: 20px;
 }
+.custom_meta_box #custom_meta_banner_image_upload_image_preview img {
+    width: auto;
+    max-height: 250px;
+}
