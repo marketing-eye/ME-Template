@@ -178,6 +178,40 @@ a:hover {
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 }
+/*footer*/
+#wrapper-footer {
+	background: #000;
+	color: #fff;
+}
+#wrapper-footer .menu {
+	padding-left: 0;
+	text-align: left;
+	margin-top: 15px;
+}
+#wrapper-footer ul.menu>li>.sub-menu .sub-menu {
+    padding-left: 10px;
+    margin-top: 8px;
+    list-style: none;
+}
+#wrapper-footer .sub-menu li {
+    font-size: 14px;
+    line-height: 15px;
+    margin-bottom: 5px;
+}
+#wrapper-footer ul.menu>li>.sub-menu .sub-menu li {
+	font-size: 12px;
+	line-height: 13px;
+}
+#wrapper-footer ul.menu>li>.sub-menu {
+    padding-left: 0;
+    margin-top: 5px;
+}
+#wrapper-footer ul.menu, #wrapper-footer ul.menu li {
+    list-style: none;
+}
+#wrapper-footer ul.menu> li {
+	margin-top: 15px;
+}
 @media (min-width: 576px) {
 	.header .logo {
 		min-width: 220px;
@@ -287,6 +321,22 @@ a:hover {
 	 }
 	 .header-type-template6 .header-secondary-section-right-part .contact-info-wrapper {
 		margin-right: 0px;
+	}
+	/*footer*/
+	#wrapper-footer .menu>.menu-item {
+		display: inline-block;
+		vertical-align: top;
+		padding-right: 25px;
+		text-align: left;
+		margin-top: 0;
+	}
+	#wrapper-footer .menu>.menu-item:last-child {
+	    padding-right: 0;
+	}
+	#wrapper-footer .menu {
+		padding-left: 0;
+		text-align: right;
+		margin-top: 0;
 	}
 }
 @media (min-width: 992px) {
