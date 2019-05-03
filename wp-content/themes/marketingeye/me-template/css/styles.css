@@ -63,16 +63,6 @@ a:hover {
     padding-left: 10px;
     padding-right: 10px;
 }
-.header .navbar-nav>.menu-item>ul.dropdown-menu>.menu-item.menu-item-has-children>a:after {
-    display: inline-block;
-    margin-left: 0.255em;
-    vertical-align: 0.255em;
-    content: "";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-    border-left: 0.3em solid transparent;
-}
 .header .open>.dropdown-menu{
 	margin-top: initial;
 	display: block;
@@ -88,11 +78,46 @@ a:hover {
 	white-space: normal;
 	width: 100%;
 }
-.navbar-nav>.menu-item>.nav-link {
+.header .dropdown-item {
+	white-space: normal;
+}
+.header .navbar-nav>.menu-item {
 	border-bottom: 1px solid grey;
 }
-.navbar-nav>.menu-item:last-child>.nav-link {
+.header .navbar-nav>.menu-item:last-child>.nav-link {
 	border-bottom: none;
+}
+.header .navbar-nav .menu-item>a {
+	width: 80%;
+	left: 10%;
+	position: relative;
+	white-space: normal;
+}
+.header .navbar-nav .nav-link:after {
+	display: none;
+}
+.header .menu-item-has-children .nav-link-arrow {
+	display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.4em solid;
+    border-right: 0.4em solid transparent;
+    border-bottom: 0;
+    border-left: 0.4em solid transparent;
+    position: absolute;
+    right: 5%;
+    top: 18px;
+    color: #fff;
+}
+.header .nav-link-arrow {
+	cursor: pointer;
+}
+.header .navbar-nav .dropdown-menu {
+	position: relative;
+}
+.header .menu-item-has-children .dropdown-menu .menu-item-has-children>.nav-link-arrow {
+    border-top: 0.4em solid black;
 }
 /*contact-info-list*/
 .contact-info-wrapper .contact-detail {
@@ -269,8 +294,31 @@ a:hover {
 	.header .navbar-nav>.menu-item>ul.dropdown-menu>.menu-item>ul.dropdown-menu .dropdown-item {
 		width: 150px;
 	}
-	.navbar-nav>.menu-item>.nav-link {
+	.header .navbar-nav>.menu-item {
 		border: none;
+	}
+	.header .navbar-nav .nav-link:after {
+		display: inline-block;
+	}
+	.header .navbar-nav .menu-item>a {
+		width: 100%;
+		left: 0%;
+	}
+	.header .navbar-nav>.menu-item>ul.dropdown-menu>.menu-item.menu-item-has-children>a:after {
+	    display: inline-block;
+	    margin-left: 0.255em;
+	    vertical-align: 0.255em;
+	    content: "";
+	    border-top: 0.3em solid;
+	    border-right: 0.3em solid transparent;
+	    border-bottom: 0;
+	    border-left: 0.3em solid transparent;
+	}
+	.header .menu-item-has-children .nav-link-arrow {
+		display: none;
+	}
+	.header .dropdown-item {
+		white-space: nowrap;
 	}
 	/*individual template option*/
 	.header-type-template4 .header-main-section .navbar-expand-md {
