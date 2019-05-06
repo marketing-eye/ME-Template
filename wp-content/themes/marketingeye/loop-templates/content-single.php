@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<header class="entry-header">
 
+		<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
+		
 		<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
 
 		<div class="entry-meta">
@@ -22,9 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		</div><!-- .entry-meta -->
 
-	</header><!-- .entry-header -->
 
-	<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
+	</header><!-- .entry-header -->
 
 	<div class="entry-content">
 
@@ -40,11 +41,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 	</div><!-- .entry-content -->
-
-	<footer class="entry-footer">
-
-		<?php understrap_entry_footer(); ?>
-
-	</footer><!-- .entry-footer -->
 
 </article><!-- #post-## -->

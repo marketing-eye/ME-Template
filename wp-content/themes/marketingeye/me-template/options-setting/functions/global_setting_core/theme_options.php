@@ -506,7 +506,7 @@ class global_setting_config {
 						'default' => '404'
 					),
 					array(
-						'id' => 'opt-404-text2',
+						'id' => 'opt-404-text',
 						'type' => 'editor',
 						'title' => '404 Text',
 						'description' => '',

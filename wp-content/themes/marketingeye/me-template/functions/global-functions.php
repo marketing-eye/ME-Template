@@ -156,5 +156,6 @@ echo $html;
         if ($value_custom_meta_header_background_slider) {
             putRevSlider($value_custom_meta_header_background_slider);
         }
+        echo get_option('opt-404-text');
 }
 add_shortcode( 'test', 'test_func' );

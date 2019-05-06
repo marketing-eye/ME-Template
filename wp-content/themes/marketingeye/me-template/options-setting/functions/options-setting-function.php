@@ -534,7 +534,7 @@ function theme_header_layout() {
 	$secondary_section_right_part_html .='</div>';
 	$secondary_section_html = $secondary_section_html.$secondary_section_left_part_html.$secondary_section_right_part_html;
 	$secondary_section_html .= '</div></div></div>';
-	$header_top_html = "<div class='header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
+	$header_top_html = "<div class='header-top header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
 	$header_banner_html = "<div class='header-banner'>";
 	$value_custom_meta_header_background_type = "";
 	$value_custom_meta_header_background_slider = "";

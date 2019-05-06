@@ -6,12 +6,25 @@
     font-size: 2.2rem;
 }
 a {
-	color: #fff;
+	color: #212529;
 }
 a:hover {
 	color: #5533ff;
+	text-decoration: none;
+}
+.btn-secondary {
+
+}
+.btn-secondary:hover {
+
 }
 /*header*/
+.header a {
+	color: #fff;
+}
+.header a:hover {
+	color: #5533ff;
+}
 .header-main-section {
 	width: 100%;
 	background-color: #000;
@@ -130,6 +143,9 @@ a:hover {
 	white-space: normal;
 	text-align: left;
 	text-transform: capitalize;
+}
+.header .navbar-nav .menu-item>a.active, .header .navbar-nav .menu-item>a:active {
+	background:  transparent;
 }
 .header .navbar-nav .nav-link:after {
 	display: none;
@@ -261,7 +277,7 @@ a:hover {
 }
 .header-banner .inner-section-container {
 	align-items: center;
-	min-height: 400px;
+	min-height: 300px;
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -270,6 +286,56 @@ a:hover {
 	background-size: cover;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
+}
+/*sticky header*/
+.header-top.sticky {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+.header-top + .header-banner {
+    margin-top: 0;
+}
+/*content*/
+.widget-title {
+	font-size: 18px;
+}
+.widget_search {
+    margin-bottom: 1rem;
+}
+.site-main .page-title {
+	font-size: 25px;
+}
+.archive .entry-title {
+    font-size: 28px;
+    line-height: 30px;
+}
+section.error-404.not-found {
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.site-main>article>img {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.site-main>article:not(:last-child) {
+	margin-bottom: 30px;
+}
+.entry-meta {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.comments-area {
+    margin-top: 30px;
+}
+.comments-area #reply-title {
+    font-size: 25px;
+    line-height: 25px;
+}
+.single-post .entry-title {
+	margin-top: 0.5rem;
 }
 /*footer*/
 #wrapper-footer {
@@ -315,7 +381,7 @@ a:hover {
 	.header .dropdown-item {
 		color: rgba(255, 255, 255, 0.5);
 	}
-	.header .dropdown-item:focus, .dropdown-item:hover {
+	.header .dropdown-item:focus,.header .dropdown-item:hover {
 		color: rgba(255, 255, 255, 0.75);
 		background: transparent;
 	}
@@ -419,6 +485,7 @@ a:hover {
 	    width: 100%;
 	    left: 0;
 	    white-space: normal;
+	    padding-left: 1.5rem;
 	}
 	.header .navbar-nav {
 		display: inline-block;
