@@ -28,13 +28,14 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 						<header class="page-header">
 
-							<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'understrap' ); ?></h1>
+							<h2 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'understrap' ); ?></h2>
 
 						</header><!-- .page-header -->
 
 						<div class="page-content">
 
-							<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'understrap' ); ?></p>
+							<p><?php echo get_option('opt-404-text') ?></p>
+							<a class="btn btn-primary" href="' . home_url() . '">Back to homepage</a>
 
 						</div><!-- .page-content -->
 
