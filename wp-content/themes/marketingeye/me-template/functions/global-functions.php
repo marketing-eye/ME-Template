@@ -38,6 +38,7 @@ add_action('admin_enqueue_scripts', function(){
 });
 
 function test_func( $atts ) {
+global $post;
 $html = "";
 $html .= "<img src='".get_option('opt-general-logo')."'/>";
 $html .= "<img src='".get_option('opt-general-logo-2')."'/>";
@@ -120,8 +121,40 @@ else if (in_array($header,get_option('opt-header-call-to-action-2-secondary-head
         $html .= "<div>opt-call-to-action-2-link: ".get_option('opt-call-to-action-2-link')."</div>";
     }
 }
-
-
+echo "<br>";
+echo "<br>";
+echo "header-options opt-header-title-enable-rows option-radio ".get_option('opt-header-title-enable');
+echo "<br>";
+echo "header-options opt-header-breadcrumb-enable-rows option-radio ".get_option('opt-header-breadcrumb-enable');
+echo "<br>";echo "<br>";
 echo $html;
+
+        $value_custom_meta_use_custom_title = get_post_meta( $post->ID, 'custom_meta_use_custom_title_key', true );
+        $value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
+        $value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
+        $value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
+        $value_custom_meta_banner_image = get_post_meta( $post->ID, 'custom_meta_banner_image_key', true );
+        $value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
+        $value_custom_meta_use_top_banner = get_post_meta( $post->ID, 'custom_meta_use_top_banner_key', true );
+        $value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
+        echo "<br>";
+        echo $value_custom_meta_use_custom_title;
+        echo "<br>";
+        echo $value_custom_meta_custom_header_title;
+        echo "<br>";
+        echo $value_custom_meta_custom_header_sub_title;
+        echo "<br>";
+        echo $value_custom_meta_header_background_type;
+        echo "<br>";
+        echo '<img style="max-width:100%;" src="'.$value_custom_meta_banner_image.'" />';
+        echo "<br>";
+        echo $value_custom_meta_show_breadcrumb;
+        echo "<br>";
+        echo $value_custom_meta_use_top_banner;
+        echo "<br>";
+        echo $value_custom_meta_header_background_slider;
+        if ($value_custom_meta_header_background_slider) {
+            putRevSlider($value_custom_meta_header_background_slider);
+        }
 }
 add_shortcode( 'test', 'test_func' );

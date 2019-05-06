@@ -493,7 +493,7 @@ function theme_header_layout() {
 			$main_section_left_part_html .= $theme_nav;
 		break;
 		default: //template1,template2,template3
-			$main_section_left_part_html .= theme_header_logo("main");
+			$main_section_left_part_html = $main_section_left_part_html.theme_header_logo("main")."<div class='contact-info-wrapper-mobile'>".theme_header_contact_info("secondary")."</div>";
 			$main_section_right_part_html .= $theme_nav;
 	endswitch;
 	$main_section_left_part_html .='</div>';
