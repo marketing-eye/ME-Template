@@ -545,6 +545,9 @@ function theme_header_layout() {
 		$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
 		$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
 		$value_custom_meta_banner_image = get_post_meta( $post->ID, 'custom_meta_banner_image_key', true );
+		$value_custom_meta_use_custom_title = get_post_meta( $post->ID, 'custom_meta_use_custom_title_key', true );
+        $value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
+        $value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
 	}
 	$a=3;
 	if ($value_custom_meta_header_background_type=='slider'):
@@ -573,12 +576,29 @@ function theme_header_layout() {
 				$header_breadcrumb = ob_get_clean();
 			}
 		}
+		$value_custom_meta_use_custom_title = get_post_meta( $post->ID, 'custom_meta_use_custom_title_key', true );
+        $value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
+        $value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
 		//title
-		ob_start();
-		wp_title("");
-		$title = ob_get_clean();
-		$title=trim($title);
-		$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+		$title ="";
+		if ($value_custom_meta_use_custom_title == 'no') {
+			ob_start();
+			wp_title("");
+			$title = ob_get_clean();
+			$title=trim($title);
+			$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+		}
+		else if ($value_custom_meta_use_custom_title == 'yes') {
+			$title = $value_custom_meta_custom_header_title;
+			$sub_title = $value_custom_meta_custom_header_sub_title;
+			if ($sub_title) {
+				$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1><h2 class='page-sub-title'>".$sub_title."</h2></div>";
+			}
+			else {
+				$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+			}
+		}
+
 		//position
 		if ($header_breadcrumb) {
 			$header_banner_left_html= $header_banner_left_html."<div class='col-12 col-md-8 header-banner-left'>".$header_page_title."</div>";

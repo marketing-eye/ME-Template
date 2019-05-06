@@ -1,4 +1,8 @@
 /*global overwrite*/
+.site>.wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 .h1,h1 {
     font-size: 3.5rem;
 }
@@ -18,6 +22,81 @@ a:hover {
 .btn-secondary:hover {
 
 }
+.btn-primary {
+
+}
+.btn-primary:hover {
+
+}
+/*form*/
+::-moz-selection {
+  background: #a6a6a6;
+  color: #FFFFFF; }
+
+::selection {
+  background: #a6a6a6;
+  color: #FFFFFF; }
+
+/* INPUT */
+input, select, textarea {
+    outline: none;
+    border: 1px solid #e5e5e5;
+    padding: 8px 15px;
+    min-height: 35px;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: #FFFFFF; 
+}
+select {
+  height: 45px; 
+}
+textarea {
+  resize: none; 
+}
+input[type="radio"], input[type="checkbox"]{
+    margin: 0 5px 0 0;
+    min-height: 0;
+    width: auto;
+}
+input[type="submit"] {
+    background-color: #999999;
+    border-radius: 2px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border: none;
+    width: 200px;
+    float: right;
+    margin-bottom: 20px;
+}
+input[type="submit"].ro-small-size {
+    width: auto; 
+}
+input[type="submit"]:hover, input[type="submit"]:focus {
+    background-color: #999999;
+}
+.placeholder {
+  color: #222222; }
+
+::-webkit-input-placeholder {
+  color: #222222; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #222222; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #222222; }
+
+:-ms-input-placeholder {
+  color: #222222; }
+
 /*header*/
 .header a {
 	color: #fff;
@@ -99,6 +178,14 @@ a:hover {
 .header-type-template5 .header-secondary-section .inner-section-container, .header-type-template6 .header-secondary-section .inner-section-container {
 	display: flex;
     align-items: center;
+}
+.header .title-wrapper .page-title {
+	font-size: 3.5rem;
+	line-height: 3.5rem;
+}
+.header .title-wrapper .page-sub-title {
+	font-size: 1.8rem;
+	line-height: 1.8rem;
 }
 /*header nav*/
 .header #wrapper-navbar {
@@ -191,6 +278,12 @@ a:hover {
 }
 .dropdown-item {
 	color: #fff;
+}
+.page-template-empty .navbar {
+    background: #000;
+}
+.page-template-empty .dropdown-menu {
+	background: #000;
 }
 /*contact-info-list*/
 .contact-info-wrapper .contact-detail {
@@ -379,6 +472,16 @@ section.error-404.not-found {
 }
 #wrapper-footer ul.menu> li {
 	margin-top: 15px;
+}
+/*plugin*/
+/*contact form*/
+.wpcf7-form-control.wpcf7-not-valid	{
+	margin-bottom: 0;
+}
+.wpcf7-not-valid-tip {
+	margin-top: 3px;
+    margin-bottom: 20px;
+    padding-left: 5px;
 }
 @media (max-width: 767px) {
 	.header-main-section .header-main-section-left-part {

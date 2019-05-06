@@ -12,11 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-get_header();
-
+get_header('empty');
+$container = get_theme_mod( 'understrap_container_type' );
+?>
+<div class="<?php echo esc_attr( $container ); ?>" id="content">
+<?php
 while ( have_posts() ) :
 	the_post();
 	get_template_part( 'loop-templates/content', 'empty' );
 endwhile;
-
+?>
+</div>
+<?php
 get_footer();

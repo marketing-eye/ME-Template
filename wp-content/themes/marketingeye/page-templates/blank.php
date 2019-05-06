@@ -21,11 +21,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php wp_head(); ?>
 </head>
 <body>
-	<?php while ( have_posts() ) : the_post(); ?>
+	<?php
+	$container = get_theme_mod( 'understrap_container_type' );
+	?>
+	<div class="<?php echo esc_attr( $container ); ?>" id="content">
+		<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php get_template_part( 'loop-templates/content', 'blank' ); ?>
+			<?php get_template_part( 'loop-templates/content', 'blank' ); ?>
 
-	<?php endwhile; // end of the loop. ?>
+		<?php endwhile; // end of the loop. ?>
+	</div>
 	<?php wp_footer(); ?>
 </body>
 </html>
