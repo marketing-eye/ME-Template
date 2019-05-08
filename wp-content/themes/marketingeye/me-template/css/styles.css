@@ -187,6 +187,9 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 	font-size: 1.8rem;
 	line-height: 1.8rem;
 }
+.content-wrapper {
+	padding-top: 60px;
+}
 /*header nav*/
 .header #wrapper-navbar {
     width: 100%;
