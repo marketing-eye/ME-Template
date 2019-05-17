@@ -16,6 +16,9 @@ a:hover {
 	color: #5533ff;
 	text-decoration: none;
 }
+[type=button], [type=reset], [type=submit], button {
+	-webkit-appearance: initial;
+}
 .btn-secondary {
 
 }
