@@ -238,6 +238,7 @@ function me_admin_init() {
 										empty($arg);
 										switch ($setting_field_type) {
 											case 'radio':
+												$setting_filed_required = "";
 												if (array_key_exists("required",$field)) {
 													$setting_filed_required = $field['required'];
 												}
@@ -370,7 +371,7 @@ $setting_field_id = $args['id'];
 			break;
 		case 'radio':
 			$header_element_display = array();
-			$display_all_time = array('opt-header-title-enable','opt-header-breadcrumb-enable');
+			$display_all_time = array('opt-header-transparent-enable','opt-header-title-enable','opt-header-breadcrumb-enable');
 			if ((array_key_exists('required',$args))&&(!in_array($args['id'],$display_all_time))) {
 				echo "<div class='header-display-fields'>";
 				foreach($args['required'] as $key => $required_header) {
@@ -472,6 +473,7 @@ function theme_header_layout() {
 	}
 	//main_section
 	$main_section_class = theme_header_main_section_class($header_name);
+	$header_transparent_class = "";
 	$main_section_html .= '<div class="header-main-section ' .$main_section_class.' clearfix">';
 	$main_section_html .= '<div class="container ' . esc_attr( $header_name ) . '-container">';
 	$main_section_html .= '<div class="inner-section-container">';
@@ -534,6 +536,9 @@ function theme_header_layout() {
 	$secondary_section_right_part_html .='</div>';
 	$secondary_section_html = $secondary_section_html.$secondary_section_left_part_html.$secondary_section_right_part_html;
 	$secondary_section_html .= '</div></div></div>';
+	$switch_value = get_option('opt-header-transparent-enable');
+	if ($switch_value == "off") $header_transparent_class="";
+	else $header_transparent_class="header-transparent";
 	$header_top_html = "<div class='header-top header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
 	$header_banner_html = "<div class='header-banner'>";
 	$value_custom_meta_header_background_type = "";
@@ -618,7 +623,7 @@ function theme_header_layout() {
 	$header_banner_html .= $slider_html.$header_banner_internal_html;
 	$header_banner_html .="</div>";
 	//mix all together
-	$header_html .="<div class='header'>";	
+	$header_html .="<div class='header ".$header_transparent_class."'>";	
 	$header_html .= $header_top_html.$header_banner_html;
 	$header_html .="</div>";
 	echo $header_html;

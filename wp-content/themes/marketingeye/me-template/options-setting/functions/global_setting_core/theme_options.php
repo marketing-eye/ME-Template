@@ -178,6 +178,11 @@ class global_setting_config {
 					'select_options'  => $header_names,
 				);
 				
+				$fields[] = array(
+					'id'        =>  'opt-header-transparent-enable',
+					'type'      =>  'radio',
+					'title'     =>  __('Enable transparent header', 'marketingeye'),
+				); 
 				// Start main section
 				$fields[] = array(
 					'id' => 'opt-header-main-section-heading',

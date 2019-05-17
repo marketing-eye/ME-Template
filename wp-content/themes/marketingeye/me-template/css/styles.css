@@ -390,6 +390,22 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 .header-top {
 	background: #acacac;
 }
+.header-transparent .header-main-section {
+    background: transparent;
+}
+.header-transparent .header-top {
+    position: absolute;
+    top: 0;
+    background: transparent;
+    width: 100%;
+    z-index: 2;
+}
+.header-transparent .sticky .header-main-section {
+    background: #000;
+}
+.header-transparent .header-banner .inner-section-container {
+    min-height: 500px;
+}
 .header-top.sticky {
     position: fixed;
     width: 100%;
