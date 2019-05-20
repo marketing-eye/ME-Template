@@ -177,6 +177,13 @@ class global_setting_config {
 					'title'    => __('Header type', 'marketingeye'),
 					'select_options'  => $header_names,
 				);
+
+				$fields[] = array(
+					'id'       => 'opt-header-type-image-preview',
+					'type'     => 'image',
+					'title'    => __('Header type preview', 'marketingeye'),
+					'images'  => array('template1'=>get_template_directory_uri() . '/me-template/images/template1.jpg','template2'=>get_template_directory_uri() . '/me-template/images/template2.jpg','template3'=>get_template_directory_uri() . '/me-template/images/template3.jpg','template4'=>get_template_directory_uri() . '/me-template/images/template4.jpg','template5'=>get_template_directory_uri() . '/me-template/images/template5.jpg','template6'=>get_template_directory_uri() . '/me-template/images/template6.jpg')
+				);
 				
 				$fields[] = array(
 					'id'        =>  'opt-header-transparent-enable',

@@ -14,6 +14,8 @@
 	float: none;
 	margin-left: 0;
 	margin-right: 50px;
+	white-space: normal;
+	margin-right: 10px;
 }
 .wrap .option-page-setting-wrapper>.nav-tab-wrapper {
 border-bottom: none;
@@ -92,6 +94,15 @@ border-bottom: none;
     margin-bottom: 15px;
     margin-top: 10px;
 }
+.option-page-setting-wrapper .option-image .images-block {
+	width: 100%;
+	margin-bottom: 15px;
+	vertical-align: top;
+}
+.option-page-setting-wrapper .option-image .images-wrapper img {
+    max-width: 100%;
+    height: auto;
+}
 .header-options .header-display-fields {
 	display: none;
 }
@@ -131,4 +142,65 @@ border-bottom: none;
 .custom_meta_box #custom_meta_banner_image_upload_image_preview img {
     width: auto;
     max-height: 250px;
+}
+@media (min-width: 580px) {
+	.option-page-setting-wrapper>.nav-tab-wrapper .nav-tab {
+		margin-right: 20px;
+	}
+}
+@media (min-width: 768px) {
+	.option-page-setting-wrapper>.nav-tab-wrapper .nav-tab {
+		margin-right: 50px;
+	}
+}
+@media (min-width: 768px) {
+	.option-page-setting-wrapper>.nav-tab-wrapper .nav-tab {
+		margin-right: 50px;
+	}
+}
+@media (min-width: 1600px) {
+	.option-page-setting-wrapper .option-image .images-block {
+		width: calc(50% - 20px);
+    	display: inline-block;
+    	margin-right: 10px;
+	}
+}
+
+#lightbox {
+	display: none;
+}
+#lightbox.show {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#lightbox {
+    position:fixed; /* keeps the lightbox window in the current viewport */
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%; 
+    text-align:center;
+}
+#lightbox img {
+    max-width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#lightbox #content {
+	background-color: #000;
+    box-shadow:0 0 25px #111;
+    -webkit-box-shadow:0 0 25px #111;
+    -moz-box-shadow:0 0 25px #111;
+}
+#lightbox .name {
+    color: #fff;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    line-height: 18px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+	border-bottom: 1px solid lightgrey;
 }

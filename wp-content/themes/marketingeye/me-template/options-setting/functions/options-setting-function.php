@@ -237,6 +237,13 @@ function me_admin_init() {
 										else $setting_filed_default = "";
 										empty($arg);
 										switch ($setting_field_type) {
+											case 'image':
+												$images="";
+												if (array_key_exists("images",$field)) {
+													$images = $field['images'];
+												}
+												$arg = array('id'=>$setting_field_id,'type'=>$setting_field_type,'title'=>$setting_filed_title,'default'=>$setting_filed_default,'class'=>$section['id']." ".$setting_field_id."-rows option-image",'images'=>$images);
+												break;
 											case 'radio':
 												$setting_filed_required = "";
 												if (array_key_exists("required",$field)) {
@@ -369,6 +376,28 @@ $setting_field_id = $args['id'];
 				echo '</select>';
 			}
 			break;
+		case 'image':
+			if (array_key_exists('images',$args)) {
+				echo '<div class="images-wrapper">';
+				foreach ($args['images'] as $key => $image) {
+					echo '<div class="images-block">';
+					echo '<div class="image-name">'.$key.'</div>';
+					echo '<a href="#" class="lightbox_trigger">';
+					echo '<img atl="'.$key.'" src="'.$image.'" />';
+					echo '</a>';
+					echo '</div>';
+				}
+				echo '</div>';
+				?>
+				<div id="lightbox">
+				    <div id="content">
+				    	<div class="name"></div>
+				        <img src="#" />
+				    </div>
+				</div>
+				<?php
+			}
+		break;
 		case 'radio':
 			$header_element_display = array();
 			$display_all_time = array('opt-header-transparent-enable','opt-header-title-enable','opt-header-breadcrumb-enable');
@@ -434,7 +463,6 @@ add_action('admin_footer', function() {
 					attachment = custom_uploader.state().get('selection').first().toJSON();
 					upload_button.siblings(".options-input-field").val(attachment.url);
 					var id=upload_button.siblings(".options-input-field").attr("name");
-					console.log(id);
 					if ($("#"+id+"_upload_image_preview img").length) {
 						$("#"+id+"_upload_image_preview img").attr("src", attachment.url);
 					}
