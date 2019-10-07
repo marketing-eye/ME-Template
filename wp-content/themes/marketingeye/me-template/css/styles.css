@@ -765,3 +765,25 @@ section.error-404.not-found {
 		display: flex;
 	}
 }
+
+.back-to-top {
+    width: 43px;
+    height: 43px;
+    line-height: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    color: #ffffff;
+    background: rgba(26,28,31,0.3);
+    text-align: center;
+    display: inline-block;
+    position: fixed;
+    right: 70px;
+    bottom: -50px;
+    font-size: 20px;
+    display: none;
+    z-index: 2;
+    cursor: pointer;
+}

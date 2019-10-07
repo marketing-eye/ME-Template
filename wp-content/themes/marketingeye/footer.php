@@ -65,19 +65,27 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<?php
 	endif;
 	?>
-	<div class="container">
-		<div class="footer-copyright row">
-			<div class="col-12">
-				<?php echo get_option('opt-footer-copyright');?>
+	<div class="footer-copyright-wrapper">
+		<div class="container">
+			<div class="footer-copyright row">
+				<div class="col-12">
+					<?php echo get_option('opt-footer-copyright');?>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 </div><!-- #page we need this extra closing tag here -->
-
+<div class="back-to-top" style="bottom: 80px; display: block;"><i class="fa fa-angle-up"></i></div>
 <?php wp_footer(); ?>
-
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+<script>
+ WebFont.load({
+    google: {
+      families: []
+    }
+  });
+</script>
 </body>
-
 </html>
 
