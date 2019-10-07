@@ -37,3 +37,5 @@ wp-content/plugins/
 # specify (see the commented-out example for a hint on how to do this.)
 wp-content/themes/*
 !wp-content/themes/marketingeye/
+wp-content/themes/marketingeye/css/*
+wp-content/themes/marketingeye/me-template/css/custom.css
