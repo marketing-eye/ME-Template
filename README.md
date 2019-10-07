@@ -1,2 +1,0 @@
-# ME-Template
-ME Template
