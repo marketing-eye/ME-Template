@@ -622,13 +622,19 @@ function theme_header_layout() {
 		}
 		//title
 		$title ="";
+		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		if ($value_custom_meta_use_custom_title == 'no') {
 			ob_start();
 			wp_title("");
 			$title = ob_get_clean();
 			$title=trim($title);
 			if ($title !== "") {
-				$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+				if ($paged>1) {
+					$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title. " - page  ".$paged."</h1></div>";
+				}
+				else {
+					$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+				}
 			}
 		}
 		else if ($value_custom_meta_use_custom_title == 'yes') {
@@ -636,10 +642,20 @@ function theme_header_layout() {
 			$sub_title = $value_custom_meta_custom_header_sub_title;
 			if ($title !== "") {
 				if ($sub_title) {
-					$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1><h2 class='page-sub-title'>".$sub_title."</h2></div>";
+					if ($paged>1) {
+						$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1><h2 class='page-sub-title'>".$sub_title. " - page  ".$paged."</h2></div>";
+					}
+					else {
+						$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1><h2 class='page-sub-title'>".$sub_title."</h2></div>";
+					}
 				}
 				else {
-					$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+					if ($paged>1) {
+						$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title. " - page  ".$paged."</h1></div>";
+					}
+					else {
+						$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+					}
 				}
 			}
 		}
