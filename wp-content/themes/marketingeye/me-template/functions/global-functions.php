@@ -37,6 +37,22 @@ add_action('admin_enqueue_scripts', function(){
     wp_enqueue_media();
 });
 
+//Remove Unnecessary Code from wp_head
+remove_action( 'wp_head', 'wp_generator' );
+
+function remove_revslider_meta_tag() {
+  return '';
+}
+add_filter( 'revslider_meta_generator', 'remove_revslider_meta_tag' );
+
+function remove_wpbakery_meta_tag() {
+  if ( class_exists( 'Vc_Manager' ) ) {
+    remove_action('wp_head', array(visual_composer(), 'addMetaData'));
+  }
+}
+add_action('wp_head', 'remove_wpbakery_meta_tag', 1);
+
+//theme test; remove when theme is ready to use
 function test_func( $atts ) {
 global $post;
 $html = "";
