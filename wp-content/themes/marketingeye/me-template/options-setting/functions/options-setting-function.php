@@ -572,7 +572,6 @@ function theme_header_layout() {
 	if ($switch_value == "off") $header_transparent_class="";
 	else $header_transparent_class="header-transparent";
 	$header_top_html = "<div class='header-top header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
-	$header_banner_html = "<div class='header-banner' style='background-image:url(".$header_banner_global.");'>";
 	$value_custom_meta_header_background_type = "";
 	$value_custom_meta_header_background_slider = "";
 	$value_custom_meta_show_breadcrumb = "";
@@ -586,7 +585,6 @@ function theme_header_layout() {
         $value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
         $value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
 	}
-	$a=3;
 	if ($value_custom_meta_header_background_type=='slider'):
 	    if ($value_custom_meta_header_background_slider):
 			ob_start();
@@ -673,7 +671,10 @@ function theme_header_layout() {
 			echo '<style>.header-banner {background-image: url("'.$value_custom_meta_banner_image.'");}</style>';
 		}
 	endif;
-	
+	if (($value_custom_meta_header_background_type==="default-global")||($value_custom_meta_header_background_type==="")) {
+		$header_banner_html = "<div class='header-banner' style='background-image:url(".$header_banner_global.");'>";
+	}
+	else $header_banner_html = "<div class='header-banner'>";
 	$header_banner_html .= $slider_html.$header_banner_internal_html;
 	$header_banner_html .="</div>";
 	//mix all together
