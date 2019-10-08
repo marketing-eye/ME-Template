@@ -16,8 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
 		
-		<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
-
 		<div class="entry-meta">
 
 			<?php understrap_posted_on(); ?>

@@ -803,3 +803,10 @@ body:not(.page) .site>.wrapper {
 *:focus {
     box-shadow: none!important;
 }
+
+ol.comment-list>li {
+    margin-bottom: 20px;
+}
+ol.comment-list {
+    list-style: none;
+}
