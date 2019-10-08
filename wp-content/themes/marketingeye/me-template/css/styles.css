@@ -787,3 +787,12 @@ section.error-404.not-found {
     z-index: 2;
     cursor: pointer;
 }
+
+body:not(.page) .site>.wrapper ~ .wrapper {
+    padding: 0;
+}
+
+body:not(.page) .site>.wrapper {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
