@@ -624,9 +624,7 @@ function theme_header_layout() {
 		$title ="";
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		if ($value_custom_meta_use_custom_title == 'no') {
-			ob_start();
-			wp_title("");
-			$title = ob_get_clean();
+			$title = $post->post_title;
 			$title=trim($title);
 			if ($title !== "") {
 				if ($paged>1) {
