@@ -685,7 +685,7 @@ class CustomMetaBoxClass {
 				<td><input type="text" name="custom_meta_custom_header_title" id="custom_meta_custom_header_title" value="<?php echo $value_custom_meta_custom_header_title; ?>" /></td>
 			</tr>
 			<tr>
-				<th><label for="custom_meta_custom_header_sub_title">Custom Header Title</label></th>
+				<th><label for="custom_meta_custom_header_sub_title">Custom Header Sub Title</label></th>
 				<td><input type="text" name="custom_meta_custom_header_sub_title" id="custom_meta_custom_header_sub_title" value="<?php echo $value_custom_meta_custom_header_sub_title; ?>" /></td>
 			</tr>
 			<tr>
