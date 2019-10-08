@@ -796,3 +796,10 @@ body:not(.page) .site>.wrapper {
     padding-top: 80px;
     padding-bottom: 80px;
 }
+.input-group-append>input.submit {
+    line-height: 18px;
+}
+
+*:focus {
+    box-shadow: none!important;
+}
