@@ -627,16 +627,20 @@ function theme_header_layout() {
 			wp_title("");
 			$title = ob_get_clean();
 			$title=trim($title);
-			$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+			if ($title !== "") {
+				$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+			}
 		}
 		else if ($value_custom_meta_use_custom_title == 'yes') {
 			$title = $value_custom_meta_custom_header_title;
 			$sub_title = $value_custom_meta_custom_header_sub_title;
-			if ($sub_title) {
-				$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1><h2 class='page-sub-title'>".$sub_title."</h2></div>";
-			}
-			else {
-				$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+			if ($title !== "") {
+				if ($sub_title) {
+					$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1><h2 class='page-sub-title'>".$sub_title."</h2></div>";
+				}
+				else {
+					$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title."</h1></div>";
+				}
 			}
 		}
 
