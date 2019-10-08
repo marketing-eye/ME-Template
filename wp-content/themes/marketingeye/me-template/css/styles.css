@@ -96,7 +96,6 @@ input[type="submit"] {
     text-transform: uppercase;
     border: none;
     width: 200px;
-    float: right;
     margin-bottom: 20px;
 }
 input[type="submit"].ro-small-size {
@@ -809,4 +808,23 @@ ol.comment-list>li {
 }
 ol.comment-list {
     list-style: none;
+}
+.wpb_row .vc_column_container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.wpb_row .vc_column_container>.vc_column-inner {
+    padding-left: 0;
+    padding-right: 0;
+}
+.wpcf7 input, .wpcf7 select, .wpcf7 textarea {
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    outline: none;
+    border: 1px solid #e5e5e5;
+    padding: 8px 15px;
+    min-height: 41px;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: #fff;
 }

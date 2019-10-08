@@ -46,8 +46,8 @@ function footer_column_widgets_init() {
 		'description' => __( 'This is a footer widget 1', 'marketingeye' ),
 		'before_widget' => '<div class="footer-widget footer-widget-1">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h3 class="widgettitle">',
+	'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
 		'name' => __( 'Footer Widget 2', 'marketingeye' ),
@@ -55,8 +55,8 @@ function footer_column_widgets_init() {
 		'description' => __( 'This is a footer widget 2', 'marketingeye' ),
 		'before_widget' => '<div class="footer-widget footer-widget-2">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h3 class="widgettitle">',
+	'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
 		'name' => __( 'Footer Widget 3', 'marketingeye' ),
@@ -64,8 +64,8 @@ function footer_column_widgets_init() {
 		'description' => __( 'This is a footer widget 3', 'marketingeye' ),
 		'before_widget' => '<div class="footer-widget footer-widget-3">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h3 class="widgettitle">',
+	'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
 		'name' => __( 'Footer Widget 4', 'marketingeye' ),
@@ -73,8 +73,8 @@ function footer_column_widgets_init() {
 		'description' => __( 'This is a footer widget4', 'marketingeye' ),
 		'before_widget' => '<div class="footer-widget footer-widget-4">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h3 class="widgettitle">',
+	'after_title'   => '</h3>',
 	) );
 }
 
@@ -86,8 +86,8 @@ function footer_extrs_widgets_init() {
 		'description' => __( 'This is the footer widget above column footer widget', 'marketingeye' ),
 		'before_widget' => '<div class="footer-widget footer-widget-above">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h3 class="widgettitle">',
+	'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
 		'name' => __( 'Footer Widget Underneath', 'marketingeye' ),
@@ -95,8 +95,8 @@ function footer_extrs_widgets_init() {
 		'description' => __( 'This is the footer widget underneath column footer widget', 'marketingeye' ),
 		'before_widget' => '<div class="footer-widget footer-widget-underneath">',
 	'after_widget'  => '</div>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>',
+	'before_title'  => '<h3 class="widgettitle">',
+	'after_title'   => '</h3>',
 	) );
 }
 function social_media_list_func() {
@@ -675,10 +675,12 @@ function theme_header_layout() {
 		$header_banner_html = "<div class='header-banner' style='background-image:url(".$header_banner_global.");'>";
 	}
 	else $header_banner_html = "<div class='header-banner'>";
+	$header_banner_html .= "<div class='overlay'></div>";	
 	$header_banner_html .= $slider_html.$header_banner_internal_html;
 	$header_banner_html .="</div>";
 	//mix all together
-	$header_html .="<div class='header ".$header_transparent_class."'>";	
+	$header_html .="<div class='header ".$header_transparent_class."'>";
+	$header_html .= "<div class='overlay'></div>";
 	$header_html .= $header_top_html.$header_banner_html;
 	$header_html .="</div>";
 	echo $header_html;
