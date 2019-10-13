@@ -38,7 +38,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 			<div class="footer-widgets row">
 			<?php 
 				for ($column=1;$column<=get_option('opt-footer-sidebar-layout');$column++) {
-					echo "<div class='col-12 col-md-".get_option('opt-footer-widget-'.$column.'-columns-width')."'>";
+					echo "<div class='col-12 col-md-".get_option('opt-footer-widget-'.$column.'-columns-width')." footer-widget-".$column."-wrapper'>";
 					if ( is_active_sidebar( 'footer-widget-'.$column ) ) : //check the sidebar if used.
 						dynamic_sidebar( 'footer-widget-'.$column );  // show the sidebar.
 					endif;
