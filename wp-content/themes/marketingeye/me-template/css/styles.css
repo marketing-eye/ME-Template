@@ -886,3 +886,62 @@ ol.comment-list {
 .header-main-section {
 	padding-bottom: 20px;
 }
+
+/*heading*/
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.title-line.line-bottom:after {
+    content: "";
+    width: 35px;
+    display: block;
+    height: 4px;
+    background-color: #000000;
+    margin-top: 11px;
+    margin-bottom: 30px;
+}
+.title-line.line-top:before {
+    content: "";
+    width: 35px;
+    display: block;
+    height: 4px;
+    background-color: #000000;
+    margin-top: 30px;
+    margin-bottom: 11px;
+}
+.title-line.line-bottom.line-middle:after {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.title-line.line-bottom.line-right:after {
+    text-align: center;
+    margin-left: auto;
+}
+.title-line.line-top.line-middle:before {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.title-line.line-top.line-right:before {
+    text-align: center;
+    margin-left: auto;
+}
+.row-title {
+    font-size: 28px;
+    line-height: normal;
+    margin-bottom: 18px;
+}
+.row-title.row-title-large {
+    font-size: 35px;
+    line-height: normal;
+}
+.row-title>span {
+	color: #b5b5b5;
+}
