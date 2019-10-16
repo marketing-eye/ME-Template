@@ -52,6 +52,16 @@ function remove_wpbakery_meta_tag() {
 }
 add_action('wp_head', 'remove_wpbakery_meta_tag', 1);
 
+/*making WP text editor supporting span tag*/
+function override_mce_options($initArray) 
+{
+  $opts = '*[*]';
+  $initArray['valid_elements'] = $opts;
+  $initArray['extended_valid_elements'] = $opts;
+  return $initArray;
+}
+add_filter('tiny_mce_before_init', 'override_mce_options'); 
+
 //theme test; remove when theme is ready to use
 function test_func( $atts ) {
 global $post;
