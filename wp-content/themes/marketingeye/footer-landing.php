@@ -8,7 +8,7 @@
     </div>
   </div>
 </div>
-                       <?php
+<?php
 /**         *  ts_add_hidden_sidebar          **/
 do_action('ts_after_footer');
 ?>    </div><!-- End / Site main -->
