@@ -37,19 +37,3 @@ foreach ( $understrap_includes as $file ) {
 
 require_once get_template_directory() . '/me-template/functions/global-functions.php';
 require_once get_template_directory() . '/me-template/functions/site-unique-functions.php';
-
-function override_mce_options($initArray) 
-
-{
-
-  $opts = '*[*]';
-
-  $initArray['valid_elements'] = $opts;
-
-  $initArray['extended_valid_elements'] = $opts;
-
-  return $initArray;
-
- }
-
- add_filter('tiny_mce_before_init', 'override_mce_options');
