@@ -420,7 +420,7 @@ $setting_field_id = $args['id'];
 		break;
 		case 'radio':
 			$header_element_display = array();
-			$display_all_time = array('opt-header-transparent-enable','opt-header-title-enable','opt-header-breadcrumb-enable');
+			$display_all_time = array('opt-header-transparent-enable','opt-header-default-mobile-menu-enable','opt-header-title-enable','opt-header-breadcrumb-enable');
 			if ((array_key_exists('required',$args))&&(!in_array($args['id'],$display_all_time))) {
 				echo "<div class='header-display-fields'>";
 				foreach($args['required'] as $key => $required_header) {
@@ -913,7 +913,7 @@ function theme_header_nav() {
 
 		<nav class="navbar navbar-expand-md navbar-dark">
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'understrap' ); ?>">
+				<button class="navbar-toggler <?php echo get_option('opt-header-default-mobile-menu-enable')? "off" : "default-mobile-menu-on"; ?>" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'understrap' ); ?>">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 

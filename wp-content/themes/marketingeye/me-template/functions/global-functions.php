@@ -21,7 +21,9 @@ add_action( 'wp_enqueue_scripts', 'site_script' );
 function add_slug_body_class( $classes ) {
 global $post;
 if ( isset( $post ) ) {
-$classes[] = $post->post_type . '-' . $post->post_name;
+$header_name = ( get_option('opt-header-type-select') ) ? get_option('opt-header-type-select') : 'template1';
+$default_mobile_menu = get_option('opt-header-default-mobile-menu-enable')? "default-mobile-menu-off" : "default-mobile-menu-on";
+$classes[] = $post->post_type . '-' . $post->post_name . " header-" . $header_name . " " . $default_mobile_menu;
 }
 return $classes;
 }

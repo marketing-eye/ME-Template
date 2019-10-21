@@ -285,7 +285,7 @@ if ( ! class_exists( 'Understrap_WP_Bootstrap_Navwalker' ) ) {
 				$item_output .= self::linkmod_element_close( $linkmod_type, $attributes );
 			} else {
 				// With no link mod type set this must be a standard <a> tag.
-				$item_output .= '</a><div class="nav-link-arrow-wrapper"><div class="nav-link-arrow"></div></div>';
+				$item_output .= '<div class="nav-link-arrow-wrapper"><div class="nav-link-arrow"></div></div></a>';
 			}
 
 			$item_output .= isset( $args->after ) ? $args->after : '';
