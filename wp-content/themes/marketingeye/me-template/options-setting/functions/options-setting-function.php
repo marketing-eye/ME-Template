@@ -155,20 +155,21 @@ function contact_info_func() {
 add_shortcode('contact_info','contact_info_func');
 
 function contact_info_phone_func() {
-	$html = "<div class='contact-info-wrapper'>";
+
 	if (get_option('opt-contact-phone-number')) {
 		$html.= trim(get_option('opt-contact-phone-number')) != '' ? '<a class="contact-detail phone-number fa fa-phone" href="tel:' . get_option('opt-contact-phone-number') . '">'.get_option('opt-contact-phone-number').'</a>' : '';
 	}
-	$html .="</div>";
+
 	echo $html;
 }
 add_shortcode('contact_info_phone','contact_info_phone_func');
 
 function contact_info_email_func() {
+
 	if (get_option('opt-contact-email')) {
 		$html.= trim(get_option('opt-contact-email')) != '' ? '<a class="contact-detail email-address fa fa-envelope" href="mailto:' . get_option('opt-contact-email') . '">'.get_option('opt-contact-email').'</a>' : '';
 	}
-	$html .="</div>";
+
 	echo $html;
 }
 add_shortcode('contact_info_email','contact_info_email_func');
