@@ -676,9 +676,14 @@ class CustomMetaBoxClass {
 		$value_custom_meta_custom_script_footer = get_post_meta( $post->ID, 'custom_meta_custom_script_footer_key', true );
 
 		if ( class_exists( 'RevSlider' ) ) {
-		    $rev_slider = new RevSlider();
-		    //$sliders = $rev_slider->getAllSliderAliases(); //revoslider 5
-		    $sliders = $rev_slider->get_sliders(); //revoslider 6
+			$rev_slider = new RevSlider();
+			$real_version = get_option('revslider_update_version', 1.0);;
+			if (version_compare($real_version, '6.0', '<')) {
+				$sliders = $rev_slider->getAllSliderAliases(); //revoslider 5
+			}
+			else {
+				$sliders = $rev_slider->get_sliders();//revoslider 6
+			}
 		} else {
 		    $sliders = array();
 		}
@@ -727,9 +732,13 @@ class CustomMetaBoxClass {
 					<?php
 					echo '<select name="custom_meta_header_background_slider">';
 					foreach ($sliders as $slider) {
-						?>
-						<option value="<?php echo $slider->alias; ?>" <?php selected($value_custom_meta_header_background_slider, $slider->alias); ?>><?php echo $slider->alias; ?></option>
-					<?php
+						if (version_compare($real_version, '6.0', '<')) { ?>
+							<option value="<?php echo $slider; ?>" <?php selected($value_custom_meta_header_background_slider, $slider); ?>><?php echo $slider; ?></option>
+
+						<?php }
+						else { ?>
+							<option value="<?php echo $slider->alias; ?>" <?php selected($value_custom_meta_header_background_slider, $slider->alias); ?>><?php echo $slider->alias; ?></option>
+						<?php }
 					}
 					echo '</select>';
 					?>
