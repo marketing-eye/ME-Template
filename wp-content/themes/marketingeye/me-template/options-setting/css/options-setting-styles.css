@@ -136,6 +136,9 @@ border-bottom: none;
 .form-table.custom_meta_box textarea {
 	width: 100%;
 }
+.form-table.custom_meta_box tr.landing-template {
+	display: none;
+}
 .form-table.custom_meta_box .landing-special-setting {
 	display: none;
 }

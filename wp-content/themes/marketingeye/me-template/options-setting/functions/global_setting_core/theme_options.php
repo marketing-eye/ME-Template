@@ -677,11 +677,11 @@ class CustomMetaBoxClass {
 
 		if ( class_exists( 'RevSlider' ) ) {
 		    $rev_slider = new RevSlider();
-		    $sliders = $rev_slider->getAllSliderAliases();
+		    //$sliders = $rev_slider->getAllSliderAliases(); //revoslider 5
+		    $sliders = $rev_slider->get_sliders(); //revoslider 6
 		} else {
 		    $sliders = array();
 		}
-
 		// Display the form, using the current value.
 		?>	
 	   <table class='form-table custom_meta_box'>
@@ -703,7 +703,7 @@ class CustomMetaBoxClass {
 				<td><input type="text" name="custom_meta_custom_header_sub_title" id="custom_meta_custom_header_sub_title" value="<?php echo $value_custom_meta_custom_header_sub_title; ?>" /></td>
 			</tr>
 			<tr>
-				<th><label for="custom_meta_header_background_type"> Header Background Tyle</label></th>
+				<th><label for="custom_meta_header_background_type"> Header Background Type</label></th>
 				<td>
 					<select name="custom_meta_header_background_type" id="custom_meta_header_background_type" class="postbox">
 						<option value="default-global" <?php selected($value_custom_meta_header_background_type, 'default-global'); ?>>Using the default global setting</option>
@@ -728,7 +728,7 @@ class CustomMetaBoxClass {
 					echo '<select name="custom_meta_header_background_slider">';
 					foreach ($sliders as $slider) {
 						?>
-						<option value="<?php echo $slider; ?>" <?php selected($value_custom_meta_header_background_slider, $slider); ?>><?php echo $slider; ?></option>
+						<option value="<?php echo $slider->alias; ?>" <?php selected($value_custom_meta_header_background_slider, $slider->alias); ?>><?php echo $slider->alias; ?></option>
 					<?php
 					}
 					echo '</select>';
