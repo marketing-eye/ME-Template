@@ -750,10 +750,11 @@ class CustomMetaBoxClass {
 						<option value="yes" <?php selected($value_custom_meta_use_top_banner, 'yes'); ?>>Yes</option>
 					</select>
 			</tr>
+			<tr class="landing-special-setting">
 				<th><label for="custom_meta_custom_script_header">Custom Script to header</label></th>
 				<td><textarea rows="10" name="custom_meta_custom_script_header" id="custom_meta_custom_script_header" value="<?php echo htmlspecialchars($value_custom_meta_custom_script_header); ?>"><?php echo htmlspecialchars($value_custom_meta_custom_script_header); ?></textarea></td>
 			</tr>
-			</tr>
+			<tr class="landing-special-setting">
 				<th><label for="custom_meta_custom_script_footer">Custom Script to footer</label></th>
 				<td><textarea rows="10" name="custom_meta_custom_script_footer" id="custom_meta_custom_script_footer" value="<?php echo htmlspecialchars($value_custom_meta_custom_script_footer); ?>"><?php echo htmlspecialchars($value_custom_meta_custom_script_footer); ?></textarea></td>
 			</tr>
