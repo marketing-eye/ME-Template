@@ -1053,3 +1053,39 @@ ol.comment-list {
 .row-title>span {
 	color: #b5b5b5;
 }
+
+/*image half full-width*/
+.fullwidth-side-image-wrapper .fullwidth-side-image-image-column {
+    padding-right: 0;
+    padding-left: 0;
+	min-height: 400px;
+}
+.fullwidth-side-image-wrapper .fullwidth-side-image-content-column {
+    padding-top: 40px;
+    padding-bottom: 40px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+@media only screen and (min-width:768px) {
+	.fullwidth-side-image-wrapper .fullwidth-side-image-image-column {
+		min-height: auto;
+	}
+	.fullwidth-side-image-wrapper.image-right .fullwidth-side-image-content-column {
+        padding-right: 4%;
+    }
+    .fullwidth-side-image-wrapper.image-left .fullwidth-side-image-content-column {
+        padding-left: 4%;
+    }
+	.fullwidth-side-image-wrapper .fullwidth-side-image-content-column.large-padding {
+        padding-top: 110px;
+        padding-bottom: 110px;
+    }
+	.fullwidth-side-image-wrapper .fullwidth-side-image-content-column.normal-padding {
+        padding-top: 80px;
+        padding-bottom: 80px;		
+	}
+    .fullwidth-side-image-wrapper .fullwidth-side-image-content-column.small-padding {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
