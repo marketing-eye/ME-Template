@@ -64,6 +64,26 @@ function override_mce_options($initArray)
 }
 add_filter('tiny_mce_before_init', 'override_mce_options'); 
 
+/*landing page script hook*/
+function landing_page_script_header_hook() {
+    do_action('landing_page_script_header_hook');
+}
+function landing_page_script_header_hook_function() {
+    global $post;
+    $value_custom_meta_custom_script_header = htmlspecialchars(get_post_meta( $post->ID, 'custom_meta_custom_script_header_key', true ));
+    echo htmlspecialchars_decode($value_custom_meta_custom_script_header);
+}
+add_action('landing_page_script_header_hook', 'landing_page_script_header_hook_function');
+
+function landing_page_script_footer_hook() {
+    do_action('landing_page_script_footer_hook');
+}
+function landing_page_script_footer_hook_function() {
+    global $post;
+    $value_custom_meta_custom_script_footer = htmlspecialchars(get_post_meta( $post->ID, 'custom_meta_custom_script_footer_key', true ));
+    echo htmlspecialchars_decode($value_custom_meta_custom_script_footer);
+}
+add_action('landing_page_script_footer_hook', 'landing_page_script_footer_hook_function');
 //theme test; remove when theme is ready to use
 function test_func( $atts ) {
 global $post;

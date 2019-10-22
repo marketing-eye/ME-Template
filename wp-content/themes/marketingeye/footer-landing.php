@@ -13,6 +13,7 @@
 do_action('ts_after_footer');
 ?>    </div><!-- End / Site main -->
 <?php wp_footer(); ?>
+<?php landing_page_script_footer_hook(); ?>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 <script>
  WebFont.load({

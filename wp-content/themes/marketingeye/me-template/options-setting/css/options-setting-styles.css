@@ -133,6 +133,9 @@ border-bottom: none;
 .form-table.custom_meta_box input {
 	width: 100%;
 }
+.form-table.custom_meta_box textarea {
+	width: 100%;
+}
 .form-table.custom_meta_box input[type='checkbox'],.form-table.custom_meta_box input[type='button'] {
     width: auto;
 }

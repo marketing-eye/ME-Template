@@ -642,6 +642,12 @@ class CustomMetaBoxClass {
 		if (array_key_exists('custom_meta_use_top_banner', $_POST)) {
 			update_post_meta($post_id,'custom_meta_use_top_banner_key',$_POST['custom_meta_use_top_banner']);
 		}
+		if (array_key_exists('custom_meta_custom_script_header', $_POST)) {
+			update_post_meta($post_id,'custom_meta_custom_script_header_key',$_POST['custom_meta_custom_script_header']);
+		}
+		if (array_key_exists('custom_meta_custom_script_footer', $_POST)) {
+			update_post_meta($post_id,'custom_meta_custom_script_footer_key',$_POST['custom_meta_custom_script_footer']);
+		}
 	}
  
  
@@ -666,6 +672,8 @@ class CustomMetaBoxClass {
 		$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
 		$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
 		$value_custom_meta_use_top_banner = get_post_meta( $post->ID, 'custom_meta_use_top_banner_key', true );
+		$value_custom_meta_custom_script_header = get_post_meta( $post->ID, 'custom_meta_custom_script_header_key', true );
+		$value_custom_meta_custom_script_footer = get_post_meta( $post->ID, 'custom_meta_custom_script_footer_key', true );
 
 		if ( class_exists( 'RevSlider' ) ) {
 		    $rev_slider = new RevSlider();
@@ -741,6 +749,13 @@ class CustomMetaBoxClass {
 						<option value="no" <?php selected($value_custom_meta_use_top_banner, 'no'); ?>>No</option>
 						<option value="yes" <?php selected($value_custom_meta_use_top_banner, 'yes'); ?>>Yes</option>
 					</select>
+			</tr>
+				<th><label for="custom_meta_custom_script_header">Custom Script to header</label></th>
+				<td><textarea rows="10" name="custom_meta_custom_script_header" id="custom_meta_custom_script_header" value="<?php echo htmlspecialchars($value_custom_meta_custom_script_header); ?>"><?php echo htmlspecialchars($value_custom_meta_custom_script_header); ?></textarea></td>
+			</tr>
+			</tr>
+				<th><label for="custom_meta_custom_script_footer">Custom Script to footer</label></th>
+				<td><textarea rows="10" name="custom_meta_custom_script_footer" id="custom_meta_custom_script_footer" value="<?php echo htmlspecialchars($value_custom_meta_custom_script_footer); ?>"><?php echo htmlspecialchars($value_custom_meta_custom_script_footer); ?></textarea></td>
 			</tr>
 		</tbody>
 	</table>
