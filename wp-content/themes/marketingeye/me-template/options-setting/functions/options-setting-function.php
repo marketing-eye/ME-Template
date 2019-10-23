@@ -596,14 +596,19 @@ function theme_header_layout() {
 	$value_custom_meta_header_background_slider = "";
 	$value_custom_meta_show_breadcrumb = "";
 	$value_custom_meta_banner_image = "";
-	if (count($post)) {
-		$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
-		$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
-		$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
-		$value_custom_meta_banner_image = get_post_meta( $post->ID, 'custom_meta_banner_image_key', true );
-		$value_custom_meta_use_custom_title = get_post_meta( $post->ID, 'custom_meta_use_custom_title_key', true );
-        $value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
-        $value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
+	$value_custom_meta_use_custom_title = "";
+	$value_custom_meta_custom_header_title = "";
+	$value_custom_meta_custom_header_sub_title = "";
+	if (!is_archive()) {
+		if (count($post)) {
+			$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
+			$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
+			$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
+			$value_custom_meta_banner_image = get_post_meta( $post->ID, 'custom_meta_banner_image_key', true );
+			$value_custom_meta_use_custom_title = get_post_meta( $post->ID, 'custom_meta_use_custom_title_key', true );
+	        $value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
+	        $value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
+		}
 	}
 	if ($value_custom_meta_header_background_type=='slider'):
 	    if ($value_custom_meta_header_background_slider):
@@ -631,9 +636,6 @@ function theme_header_layout() {
 				$header_breadcrumb = ob_get_clean();
 			}
 		}
-		$value_custom_meta_use_custom_title = get_post_meta( $post->ID, 'custom_meta_use_custom_title_key', true );
-        $value_custom_meta_custom_header_title = get_post_meta( $post->ID, 'custom_meta_custom_header_title_key', true );
-        $value_custom_meta_custom_header_sub_title = get_post_meta( $post->ID, 'custom_meta_custom_header_sub_title_key', true );
 		//set default value if the meta title not set
 		if (!$value_custom_meta_use_custom_title) {
 			$value_custom_meta_use_custom_title = "no";
