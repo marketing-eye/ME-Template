@@ -53,6 +53,9 @@ a:hover {
 .btn-primary:hover {
 
 }
+b, strong {
+	font-weight: bold;
+}
 /*form*/
 ::-moz-selection {
   background: #a6a6a6;
