@@ -600,7 +600,7 @@ function theme_header_layout() {
 	$value_custom_meta_custom_header_title = "";
 	$value_custom_meta_custom_header_sub_title = "";
 	if (!is_archive()) {
-		if (count($post)) {
+		if (is_array($post) && count($post)) {
 			$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
 			$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
 			$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
