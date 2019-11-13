@@ -190,7 +190,7 @@ function add_new_menu_items()
 	}
 add_action( 'admin_menu', 'add_new_menu_items' );
 
-
+add_filter( 'widget_text', 'do_shortcode' );
 function me_theme_options( $active_tab = '' ) {
 	?>
 
