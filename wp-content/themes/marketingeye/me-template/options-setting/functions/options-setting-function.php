@@ -599,8 +599,6 @@ function theme_header_layout() {
 	$value_custom_meta_use_custom_title = "";
 	$value_custom_meta_custom_header_title = "";
 	$value_custom_meta_custom_header_sub_title = "";
-	echo "array: ".is_array($post);
-	echo "object: ".is_object($post);
 	if (!is_archive()) {
 		if (is_array($post) && count($post)) {
 			$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
