@@ -134,7 +134,7 @@ function social_media_list_func() {
 		$html.= trim(get_option('opt-social-rss')) != '' ? '<a href="' . esc_url(get_option('opt-social-rss')) . '" target="_blank"><i class="fa fa-rss"></i></a>' : '';
 		}
 	$html.="</div>";
-	echo $html;
+	return $html;
 }
 add_shortcode('social_media_list','social_media_list_func');
 
@@ -150,7 +150,7 @@ function contact_info_func() {
 		$html.= trim(get_option('opt-contact-address')) != '' ? '<span class="contact-detail location fa fa-map-marker">'.get_option('opt-contact-address').'</span>' : '';
 	}
 	$html .="</div>";
-	echo $html;
+	return $html;
 }
 add_shortcode('contact_info','contact_info_func');
 
@@ -160,7 +160,7 @@ function contact_info_phone_func() {
 		$html.= trim(get_option('opt-contact-phone-number')) != '' ? '<a class="contact-detail phone-number fa fa-phone" href="tel:' . get_option('opt-contact-phone-number') . '">'.get_option('opt-contact-phone-number').'</a>' : '';
 	}
 
-	echo $html;
+	return $html;
 }
 add_shortcode('contact_info_phone','contact_info_phone_func');
 
@@ -170,7 +170,7 @@ function contact_info_email_func() {
 		$html.= trim(get_option('opt-contact-email')) != '' ? '<a class="contact-detail email-address fa fa-envelope" href="mailto:' . get_option('opt-contact-email') . '">'.get_option('opt-contact-email').'</a>' : '';
 	}
 
-	echo $html;
+	return $html;
 }
 add_shortcode('contact_info_email','contact_info_email_func');
 
@@ -599,6 +599,8 @@ function theme_header_layout() {
 	$value_custom_meta_use_custom_title = "";
 	$value_custom_meta_custom_header_title = "";
 	$value_custom_meta_custom_header_sub_title = "";
+	echo "array: ".is_array($post);
+	echo "object: ".is_object($post);
 	if (!is_archive()) {
 		if (is_array($post) && count($post)) {
 			$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
@@ -850,9 +852,7 @@ function theme_header_logo($header_position) {
 function theme_header_social_media($header_position) {      
 	$theme_social_media = "";
 	if (theme_radio_value('opt-header-socials-'.$header_position)) {
-		ob_start();
-		social_media_list_func();
-		$theme_social_media = ob_get_clean();
+		$theme_social_media = social_media_list_func();
 	}
 	return $theme_social_media;
 }
@@ -860,9 +860,7 @@ function theme_header_social_media($header_position) {
 function theme_header_contact_info($header_position) {      
 	$theme_contact_info = "";
 	if (theme_radio_value('opt-header-contact-info-'.$header_position)) {
-		ob_start();
-		contact_info_func();
-		$theme_contact_info = ob_get_clean();
+		$theme_contact_info = contact_info_func();
 	}
 	return $theme_contact_info;
 }
