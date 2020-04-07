@@ -140,14 +140,15 @@ add_shortcode('social_media_list','social_media_list_func');
 
 function contact_info_func() {
 	$html = "<div class='contact-info-wrapper'>";
-	if (get_option('opt-contact-phone-number')) {
-		$html.= trim(get_option('opt-contact-phone-number')) != '' ? '<a class="contact-detail phone-number fa fa-phone" href="tel:' . get_option('opt-contact-phone-number') . '">'.get_option('opt-contact-phone-number').'</a>' : '';
-	}
 	if (get_option('opt-contact-email')) {
-		$html.= trim(get_option('opt-contact-email')) != '' ? '<a class="contact-detail email-address fa fa-envelope" href="mailto:' . get_option('opt-contact-email') . '">'.get_option('opt-contact-email').'</a>' : '';
+		$html.= trim(get_option('opt-contact-email')) != '' ? '<span class="contact-detail-email">EMAIL: <a class="contact-detail email-address" href="mailto:' . get_option('opt-contact-email') . '">'.get_option('opt-contact-email').'</a></span>' : '';
 	}
+	if (get_option('opt-contact-phone-number')) {
+		$html.= trim(get_option('opt-contact-phone-number')) != '' ? '<span class="contact-detail-phone">PHONE: <a class="contact-detail phone-number" href="tel:' . get_option('opt-contact-phone-number') . '">'.get_option('opt-contact-phone-number').'</a></span>' : '';
+	}
+	
 	if (get_option('opt-contact-address')) {
-		$html.= trim(get_option('opt-contact-address')) != '' ? '<span class="contact-detail location fa fa-map-marker">'.get_option('opt-contact-address').'</span>' : '';
+		$html.= trim(get_option('opt-contact-address')) != '' ? '<span class="contact-detail location">'.get_option('opt-contact-address').'</span>' : '';
 	}
 	$html .="</div>";
 	return $html;
@@ -190,7 +191,7 @@ function add_new_menu_items()
 	}
 add_action( 'admin_menu', 'add_new_menu_items' );
 
-add_filter( 'widget_text', 'do_shortcode' );
+
 function me_theme_options( $active_tab = '' ) {
 	?>
 
@@ -599,8 +600,9 @@ function theme_header_layout() {
 	$value_custom_meta_use_custom_title = "";
 	$value_custom_meta_custom_header_title = "";
 	$value_custom_meta_custom_header_sub_title = "";
+
 	if (!is_archive()) {
-		if (is_array($post) && count($post)) {
+		if (count($post)) {
 			$value_custom_meta_header_background_type = get_post_meta( $post->ID, 'custom_meta_header_background_type_key', true );
 			$value_custom_meta_header_background_slider = get_post_meta( $post->ID, 'custom_meta_header_background_slider_key', true );
 			$value_custom_meta_show_breadcrumb = get_post_meta( $post->ID, 'custom_meta_show_breadcrumb_key', true );
@@ -644,9 +646,10 @@ function theme_header_layout() {
 		$title ="";
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		if ($value_custom_meta_use_custom_title == 'no') {
-            ob_start();
-            wp_title("");
-            $title = ob_get_clean();
+      $title = $post->post_title;
+            // ob_start();
+            // wp_title("");
+            // $title = ob_get_clean();
 			if ($title !== "") {
 				if ($paged>1) {
 					$header_page_title = "<div class='title-wrapper'><h1 class='page-title'>".$title. " - page  ".$paged."</h1></div>";
