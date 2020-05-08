@@ -592,7 +592,7 @@ function theme_header_layout() {
 	$switch_value = get_option('opt-header-transparent-enable');
 	if ($switch_value == "off") $header_transparent_class="";
 	else $header_transparent_class="header-transparent";
-	$header_top_html = "<div class='header-top header-type-$header_name'>".$secondary_section_html.$main_section_html."</div>";
+	$header_top_html = "<div class='header-top header-type-'.$header_name'>".$secondary_section_html.$main_section_html."</div>";
 	$value_custom_meta_header_background_type = "";
 	$value_custom_meta_header_background_slider = "";
 	$value_custom_meta_show_breadcrumb = "";
